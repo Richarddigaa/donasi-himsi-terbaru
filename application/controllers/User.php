@@ -37,19 +37,28 @@ class User extends CI_Controller
         $this->load->view('templates/user_navbar', $data);
         $this->load->view('user/donasi', $data);
         $this->load->view('templates/user_footer');
+       
     }
 
     public function detailDonasi()
     {
         $data['title'] = 'Detail Donasi | Donasi Kita';
-        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        if ($this->session->userdata('email')) {
+            $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+            $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
 
-        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('templates/user_navbar', $data);
+            $this->load->view('user/detailDonasi', $data);
+            $this->load->view('templates/user_footer');
+        } else {
+            $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
 
-        $this->load->view('templates/user_header', $data);
-        $this->load->view('templates/user_navbar', $data);
-        $this->load->view('user/detailDonasi', $data);
-        $this->load->view('templates/user_footer');
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('templates/user_navbar', $data);
+            $this->load->view('user/detailDonasi', $data);
+            $this->load->view('templates/user_footer');
+        }
     }
 
     public function riwayatDonasi()
@@ -68,6 +77,7 @@ class User extends CI_Controller
     public function berdonasi()
     {
         $data['title'] = 'Detail Donasi | Donasi Kita';
+        if ($this->session->userdata('email')) {
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
@@ -127,6 +137,15 @@ class User extends CI_Controller
                 );
                 redirect('user/donasi');
             }
+        }
+        } else {
+            $this->session->set_flashdata(
+                'pesan',
+                '<div class="alert alert-success" role="alert">Silahkan Login terlebih dahulu</div>
+            <meta http-equiv="refresh" content="2">'
+            );
+
+            redirect('auth');
         }
     }
 

@@ -130,6 +130,6 @@ class Auth extends CI_Controller
             <meta http-equiv="refresh" content="2">'
         );
 
-        redirect('auth');
+        redirect('user');
     }
 }
