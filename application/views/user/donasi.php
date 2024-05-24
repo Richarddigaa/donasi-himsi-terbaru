@@ -1,31 +1,30 @@
-
 <?php
 
-    if (isset($_GET['keyword'])) {
-        $queryDonasi = "SELECT * FROM donasi WHERE judul LIKE '%$_GET[keyword]%'";
-        $donasi = $this->db->query($queryDonasi)->result_array();
-    }
-    // get produk by kategori
-    else if (isset($_GET['kategori'])) {
-        $queryGETkategori = "SELECT id_kategori FROM kategori WHERE kategori='$_GET[kategori]'";
-        $kategoriId = $this->db->query($queryGETkategori)->result_array();
-    
-        foreach ($kategoriId as $ki) { 
-            $queryDonasi = "SELECT * FROM donasi WHERE id_kategori='$ki[id_kategori]'";
-            $donasi = $this->db->query($queryDonasi)->result_array();
-        }
-    }
-    // get produk default
-    else {
-        $queryDonasi = "SELECT * FROM donasi";
-        $donasi = $this->db->query($queryDonasi)->result_array();
-    }
+if (isset($_GET['keyword'])) {
+    $queryDonasi = "SELECT * FROM donasi WHERE judul LIKE '%$_GET[keyword]%'";
+    $donasi = $this->db->query($queryDonasi)->result_array();
+}
+// get produk by kategori
+else if (isset($_GET['kategori'])) {
+    $queryGETkategori = "SELECT id_kategori FROM kategori WHERE kategori='$_GET[kategori]'";
+    $kategoriId = $this->db->query($queryGETkategori)->result_array();
 
-    $countData = $this->db->query($queryDonasi)->num_rows();
+    foreach ($kategoriId as $ki) {
+        $queryDonasi = "SELECT * FROM donasi WHERE id_kategori='$ki[id_kategori]'";
+        $donasi = $this->db->query($queryDonasi)->result_array();
+    }
+}
+// get produk default
+else {
+    $queryDonasi = "SELECT * FROM donasi";
+    $donasi = $this->db->query($queryDonasi)->result_array();
+}
+
+$countData = $this->db->query($queryDonasi)->num_rows();
 ?>
 
 <div class="container py-5">
-     <?php echo $this->session->flashdata('pesan'); ?>
+    <?php echo $this->session->flashdata('pesan'); ?>
     <div class="row">
         <div class="col-lg-3 mb-5">
             <h3>Kategori</h3>
@@ -55,8 +54,11 @@
                             </div>
                             <div class="card-body">
                                 <h4 class="fw-bolder"><?php echo $d['judul']; ?></h4>
-                                <p class="card-text text-truncate"><?php echo $d['detail']; ?></p>
+                                <!-- <p class="card-text text-truncate"><?php echo $d['detail']; ?></p> -->
                                 <p class="card-text text-harga"><?= "Dana yang sudah terkumpul Rp. " . number_format($d['dana_terkumpul']); ?> </p>
+                            </div>
+                            <div class="progress mb-4" style="width: 87%; margin-left: 6%;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $d['dana_terkumpul'] / $d['dana_dibutuhkan'] * 100; ?>%"></div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/detailDonasi/') . $d['id']; ?>">Bantu Mereka</a></div>
