@@ -17,6 +17,7 @@
                 <div class="card-body">
                     <h4 class="card-title mb-4">Input Pencairan Dana</h4>
                     <form action="<?= base_url('admin/inputPencairan/' . $data->id) ?>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_donasi" value="<?= $d['id'] ?>">
                         <div class="form-group">
                             <label for="nama_donasi" class="col-sm-2 col-form-label">Nama Donasi</label>
                             <input type="text" class="form-control form-control-user" id="nama_donasi" name="nama_donasi" value="<?= $d['judul'] ?>" readonly>

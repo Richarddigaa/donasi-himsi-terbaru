@@ -462,7 +462,14 @@ class Admin extends CI_Controller
             $this->load->view('admin/input-pencairan', $data);
             $this->load->view('templates/footer');
         } else {
+            $simpan = [
+                'status_donasi' => 'Sudah dicairkan'
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('donasi', $simpan);
+
             $this->db->insert('laporan_pencairan', [
+                'id_donasi' => $this->input->post('id_donasi', true),
                 'nama_donasi' => $this->input->post('nama_donasi', true),
                 'kategori_donasi' => $this->input->post('kategori_donasi', true),
                 'dana_cair' => $this->input->post('dana_cair', true),
@@ -471,7 +478,6 @@ class Admin extends CI_Controller
                 'nama_penerima' => $this->input->post('nama_penerima', true),
                 'detail_pencairan' => $this->input->post('detail_pencairan', true)
             ]);
-            $this->ModelAdmin->hapusDonasi($id);
             $this->session->set_flashdata(
                 'pesan',
                 '<div class="alert alert-success alert-message" role="alert">Pencairan Dana Berhasil</div>

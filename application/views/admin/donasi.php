@@ -32,6 +32,7 @@
                                     <th scope="col">Dana Yang Terkumpul</th>
                                     <th scope="col">Detail</th>
                                     <th scope="col">Foto</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Opsi</th>
                                 </tr>
                             </thead>
@@ -50,6 +51,7 @@
                                                 <source srcset="" type="image/svg+xml"> <img src="<?= base_url('assets/img/upload/') . $d['gambar']; ?>" class="img-fluid img-thumbnail" alt="...">
                                             </picture>
                                         </td>
+                                        <td><?php echo $d['status_donasi']; ?></td>
                                         <td>
                                             <a href="<?php echo base_url('admin/ubahDonasi/') . $d['id']; ?>" class="btn btn-primary mr-2 mb-2"><i class="far fa-fw fa-edit mr-2"></i>Edit</a>
                                             <a href="<?php echo base_url('admin/hapusDonasi/') . $d['id']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $d['judul']; ?> ?');" class="btn btn-danger"><i class="fas fa-fw fa-trash mr-2"></i>Hapus</a>
