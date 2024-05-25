@@ -1,6 +1,6 @@
 <!-- Header-->
 <header>
-    <div class="container-fluid banner d-flex align-items-center">
+    <div class="container-fluid banner d-flex align-items-center mb-2">
         <div class="container text-center text-black">
             <div class="col-md-8 offset-md-2">
                 <form method="get" action="<?= base_url('user/donasi') ?>">
@@ -13,22 +13,16 @@
         </div>
     </div>
 </header>
-
-<div class="container-fluid warna1 py-5">
+<div class="container-fluid bg-primary py-5">
     <div class="container text-center">
-        <h3>Tentang Kami</h3>
-        <p class="fs-5 mt-3">
+        <h3 style="font-weight: bold;" class="text-light">Tentang Kami</h3>
+        <p class="fs-5 mt-3 text-light">
             Berawal dari ikut kegiatan aksi sosial secara langsung dan nyata, kami ingin bertransformasi dari sistem turun ke jalan yang konvensional menjadi sistem online.
             Para founder dan pengurus saling sepakat untuk memberikan nama baru yang mempunyai makna lebih besar dari sebelumnya agar bisa mencapai tujuan yang lebih baik untuk bersama.
             Dengan hadir nama baru Yayasan Donasi Kami, disini kami menyediakan wadah donasi online / penggalangan dana online melalui website kami. Untuk memudahkan penyaluran donasi kepada seluruh masyarakat yang membutuhkan dan lebih transparan untuk para pemberi donasi.
         </p>
     </div>
 </div>
-
-<?php
-$queryDonasi = "SELECT * FROM donasi LIMIT 8";
-$donasi = $this->db->query($queryDonasi)->result_array();
-?>
 
 <section class="py-5">
     <div class="container text-center">

@@ -6,11 +6,11 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Home | Donasi Kita';
+        $data['title'] = 'Home | Donasi Himsi';
+        $data['donasi'] = $this->db->query("SELECT * FROM donasi WHERE status_donasi = 'Belum dicairkan' ORDER BY id DESC LIMIT 8 ")->result_array();
+        
         if ($this->session->userdata('email')) {
             $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-
-            $data['donasi'] = $this->db->get('donasi')->result_array();
 
             $this->load->view('templates/user_header', $data);
             $this->load->view('templates/user_navbar', $data);
@@ -18,7 +18,7 @@ class User extends CI_Controller
             $this->load->view('templates/user_footer');
         } else {
             $data['user'] = 'pengunjung';
-            $data['donasi'] = $this->db->get('donasi')->result_array();
+          
             $this->load->view('templates/user_header', $data);
             $this->load->view('templates/user_navbar', $data);
             $this->load->view('user/index', $data);
@@ -28,7 +28,7 @@ class User extends CI_Controller
 
     public function donasi()
     {
-        $data['title'] = 'Bantu Mereka | Donasi Kita';
+        $data['title'] = 'Bantu Mereka | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
@@ -42,7 +42,7 @@ class User extends CI_Controller
 
     public function detailDonasi()
     {
-        $data['title'] = 'Detail Donasi | Donasi Kita';
+        $data['title'] = 'Detail Donasi | Donasi Himsi';
         if ($this->session->userdata('email')) {
             $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
             $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
@@ -63,7 +63,7 @@ class User extends CI_Controller
 
     public function riwayatDonasi()
     {
-        $data['title'] = 'Detail Donasi | Donasi Kita';
+        $data['title'] = 'Detail Donasi | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $data['user_berdonasi'] = $this->db->get('user_berdonasi')->result_array();
@@ -76,7 +76,7 @@ class User extends CI_Controller
 
     public function berdonasi()
     {
-        $data['title'] = 'Detail Donasi | Donasi Kita';
+        $data['title'] = 'Detail Donasi | Donasi Himsi';
         if ($this->session->userdata('email')) {
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
@@ -144,14 +144,13 @@ class User extends CI_Controller
                 '<div class="alert alert-success" role="alert">Silahkan Login terlebih dahulu</div>
             <meta http-equiv="refresh" content="2">'
             );
-
             redirect('auth');
         }
     }
 
     public function profile()
     {
-        $data['title'] = 'Profile Saya | Donasi Kita';
+        $data['title'] = 'Profile Saya | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/user_header', $data);
@@ -162,7 +161,7 @@ class User extends CI_Controller
 
     public function ubahProfile()
     {
-        $data['title'] = 'Ubah Profile | Donasi Kita';
+        $data['title'] = 'Ubah Profile | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $this->form_validation->set_rules(
@@ -208,7 +207,7 @@ class User extends CI_Controller
 
     public function tentangKami()
     {
-        $data['title'] = 'Tentang Kami | Donasi Kita';
+        $data['title'] = 'Tentang Kami | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/user_header', $data);
