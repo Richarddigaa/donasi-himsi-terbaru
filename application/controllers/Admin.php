@@ -399,4 +399,126 @@ class Admin extends CI_Controller
             redirect('admin/profile');
         }
     }
+
+    public function pencairanDana()
+    {
+        $data['title'] = 'Pencairan Dana | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['donasi'] = $this->db->get('donasi')->result_array();
+
+        $data['kategori'] = $this->db->get('kategori')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/pencairan-dana', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function inputPencairan($id)
+    {
+        $data['title'] = 'Pencairan Dana | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
+
+        $data['data'] = $this->ModelAdmin->getrow(array('id' => $id), 'donasi');
+
+        $data['kategori'] = $this->db->get('kategori')->result_array();
+
+        $this->form_validation->set_rules(
+            'nama_rekening',
+            'Nama Rekening',
+            'required|min_length[3]',
+            ['required' => 'Nama Rekening harus diisi', 'min_length' => 'Nama Rekening terlalu pendek']
+        );
+
+        $this->form_validation->set_rules(
+            'nomor_rekening',
+            'Nomor Rekening',
+            'required|min_length[3]',
+            ['required' => 'No Rekening harus diisi', 'min_length' => 'No Rekening terlalu pendek']
+        );
+
+        $this->form_validation->set_rules(
+            'nama_penerima',
+            'Nama Penerima',
+            'required|min_length[3]',
+            ['required' => 'Nama Penerima harus diisi', 'min_length' => 'Nama Penerima terlalu pendek']
+        );
+
+        $this->form_validation->set_rules(
+            'detail_pencairan',
+            'Detail Pencairan',
+            'required|min_length[3]',
+            ['required' => 'Detail Pencairan harus diisi', 'min_length' => 'Detail Pencairan terlalu pendek']
+        );
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/input-pencairan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->db->insert('laporan_pencairan', [
+                'nama_donasi' => $this->input->post('nama_donasi', true),
+                'kategori_donasi' => $this->input->post('kategori_donasi', true),
+                'dana_cair' => $this->input->post('dana_cair', true),
+                'nama_rekening' => $this->input->post('nama_rekening', true),
+                'nomor_rekening' => $this->input->post('nomor_rekening', true),
+                'nama_penerima' => $this->input->post('nama_penerima', true),
+                'detail_pencairan' => $this->input->post('detail_pencairan', true)
+            ]);
+            $this->ModelAdmin->hapusDonasi($id);
+            $this->session->set_flashdata(
+                'pesan',
+                '<div class="alert alert-success alert-message" role="alert">Pencairan Dana Berhasil</div>
+                                    <meta http-equiv="refresh" content="2">'
+            );
+            redirect('admin/pencairanDana');
+        }
+    }
+
+    public function laporanPencairan()
+    {
+        $data['title'] = 'Laporan Pencairan Dana | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/laporan-pencairan', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function print_laporan_pencairan()
+    {
+        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+
+        $this->load->view('admin/print-laporan-pencairan', $data);
+    }
+
+    public function pdf_laporan_pencairan()
+    {
+        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+
+        $sroot = $_SERVER['DOCUMENT_ROOT'];
+        include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
+
+        $dompdf = new Dompdf\Dompdf();
+        $this->load->view('admin/pdf-laporan-pencairan', $data);
+        $paper_size  = 'A4'; // ukuran kertas 
+        $orientation = 'landscape'; //tipe format kertas potrait atau landscape 
+        $html = $this->output->get_output();
+        $dompdf->set_paper($paper_size, $orientation);
+        //Convert to PDF 
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream("laporan_pencairan_donasi.pdf", array('Attachment' => 0));
+        // nama file pdf yang di hasilkan
+    }
 }

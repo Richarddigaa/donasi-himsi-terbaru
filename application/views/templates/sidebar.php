@@ -42,9 +42,21 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/riwayatDonasi'); ?>">
+        <a class="nav-link pb-0" href="<?= base_url('admin/riwayatDonasi'); ?>">
             <i class="fas fa-fw fa-clipboard-check"></i>
             <span>Riwayat Donasi</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link pb-0" href="<?= base_url('admin/pencairanDana'); ?>">
+            <i class="fas fa-fw fa-hand-holding-usd"></i>
+            <span>Pencairan Dana</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/laporanPencairan'); ?>">
+            <i class="fas fa-fw fa-clipboard-list"></i>
+            <span>Laporan Pencairan</span>
         </a>
     </li>
     </li>
