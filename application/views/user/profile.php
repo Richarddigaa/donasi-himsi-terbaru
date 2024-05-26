@@ -1,5 +1,4 @@
-
-<div class="container-fluid m-5">
+<div class="container-fluid py-5 mt-5 ms-2">
     <div class="mb-3">
         <h1>Profile Saya</h1>
     </div>
@@ -12,7 +11,9 @@
                     <p class="card-text"><?= $user['email']; ?></p>
                     <p class="card-text"><small class="text-muted">Jadi donatur sejak: <b><?= date('d F Y', $user['tanggal_input']); ?></b></small></p>
                 </div>
-                <div class="btn btn-info ml-3 my-3"> <a href="<?= base_url('user/ubahProfile'); ?>" class="text text-white"><i class="fas fa-user-edit"></i>Ubah Profil</a> </div>
+                <div class="btn btn-info ms-3 my-3">
+                    <a href="<?= base_url('user/ubahProfile'); ?>" class="text text-white text-decoration-none"><i class="fas fa-user-edit"></i> Ubah Profil</a>
+                </div>
             </div>
         </div>
     </div>

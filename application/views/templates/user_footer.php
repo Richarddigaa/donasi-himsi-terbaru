@@ -1,7 +1,12 @@
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark mt-5" style="width: 100%;">
+            <div class="container text-end mb-2">
+                <a class="text-light fs-4 me-2 " href=""><i class="fab fa-instagram"></i></a>
+                <a class="text-light fs-4 me-2"><i class="fab fa-facebook"></i></a>
+                <a class="text-light fs-4 "><i class="fas fa-envelope"></i></a>
+            </div>
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; DONASI KITA ~ PRIHATIN 2023</p>
+                <p class="m-0 text-center text-white">Copyright &copy; DONASI HIMSI-2023</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

@@ -16,14 +16,14 @@ else if (isset($_GET['kategori'])) {
 }
 // get produk default
 else {
-    $queryDonasi = "SELECT * FROM donasi";
+    $queryDonasi = "SELECT * FROM donasi ORDER BY id DESC";
     $donasi = $this->db->query($queryDonasi)->result_array();
 }
 
 $countData = $this->db->query($queryDonasi)->num_rows();
 ?>
 
-<div class="container py-5">
+<div class="container py-5 mt-5">
     <?php echo $this->session->flashdata('pesan'); ?>
     <div class="row">
         <div class="col-lg-3 mb-5">
