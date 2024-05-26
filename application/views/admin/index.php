@@ -98,7 +98,7 @@
                                 Pencairan Dana
                             </div>
                             <div class="h1 mb-0 font-weight-bold text-white">
-                                <?= $totalRiwayat; ?>
+                                <?= $totalPencairan; ?>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -119,7 +119,7 @@
                                 Laporan Pencairan
                             </div>
                             <div class="h1 mb-0 font-weight-bold text-white">
-                                <?= $totalRiwayat; ?>
+                                <?= $totalLaporan; ?>
                             </div>
                         </div>
                         <div class="col-auto">

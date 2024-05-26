@@ -13,6 +13,10 @@ class Admin extends CI_Controller
         $data['totalKategori'] = $this->db->get('kategori')->num_rows();
         $data['totalPembayaran'] = $this->db->get('pembayaran')->num_rows();
         $data['totalRiwayat'] = $this->db->get('user_berdonasi')->num_rows();
+        $data['totalLaporan'] = $this->db->get('laporan_pencairan')->num_rows();
+
+        $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE status_donasi = 'Belum dicairkan' and dana_terkumpul > 0";
+        $data['totalPencairan'] = $this->db->query($queryDonasi)->num_rows();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
