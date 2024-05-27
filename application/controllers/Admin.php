@@ -480,7 +480,8 @@ class Admin extends CI_Controller
                 'nama_rekening' => $this->input->post('nama_rekening', true),
                 'nomor_rekening' => $this->input->post('nomor_rekening', true),
                 'nama_penerima' => $this->input->post('nama_penerima', true),
-                'detail_pencairan' => $this->input->post('detail_pencairan', true)
+                'detail_pencairan' => $this->input->post('detail_pencairan', true),
+                'tanggal_pencairan' => time()
             ]);
             $this->session->set_flashdata(
                 'pesan',

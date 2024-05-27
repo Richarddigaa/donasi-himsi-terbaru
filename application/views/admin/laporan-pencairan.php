@@ -26,6 +26,7 @@
                                     <th scope="col">No Rekening</th>
                                     <th scope="col">Nama Penerima</th>
                                     <th scope="col">Detail Pencairan</th>
+                                    <th scope="col">Tanggal Pencairan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,7 @@
                                         <td><?php echo $p['nomor_rekening']; ?></td>
                                         <td><?php echo $p['nama_penerima']; ?></td>
                                         <td><?php echo $p['detail_pencairan']; ?></td>
+                                        <td><?php echo date('d F Y', $p['tanggal_pencairan']); ?></td>
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
