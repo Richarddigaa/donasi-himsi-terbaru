@@ -6,7 +6,7 @@
                 <a class="text-light fs-4 "><i class="fas fa-envelope"></i></a>
             </div>
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; DONASI HIMSI-2023</p>
+                <p class="m-0 text-center text-white">Copyright &copy; DONASI HIMSI-2024</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

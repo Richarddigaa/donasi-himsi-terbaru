@@ -22,6 +22,7 @@
                                 <th scope="col">Metode Pembayaran</th>
                                 <th scope="col">Dana Yang Didonasikan</th>
                                 <th scope="col">Tanggal Donasi</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,6 +42,9 @@
                                         <td><span><?php echo $b['nama_pembayaran']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                         <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
+                                        <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>">Cek Donasi</a></td>
+                                        <?php } ?>
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>

@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="<?= base_url('user'); ?>"> <img src="<?= base_url('assets/img/'); ?>logo-donasi.png" width="50" height="50" alt="Donasi Himsi">DONASI HIMSI</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 fs-5" style="margin-top: -5px;">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="<?= base_url('user'); ?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('user/tentangKami'); ?>">Tentang Kami</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('user/donasi'); ?>">Bantu Mereka</a></li>
