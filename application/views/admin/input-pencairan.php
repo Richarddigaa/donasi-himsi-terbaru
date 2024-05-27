@@ -31,8 +31,14 @@
                             <input type="number" class="form-control form-control-user" id="dana_cair" name="dana_cair" value="<?= $d['dana_terkumpul'] ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="nama_rekening" class="col-sm-2 col-form-label">Nama Rekening</label>
-                            <input type="text" class="form-control form-control-user" id="nama_rekening" name="nama_rekening">
+                            <label for="nama_rekening" class="col-sm-2 col-form-label">Pilih Rekening</label>
+                            <select name="nama_rekening" class="form-control form-control-user">
+                                <option value="BANK BCA">BANK BCA</option>
+                                <option value="BANK Mandiri">BANK Mandiri</option>
+                                <option value="BANK BRI">BANK BRI</option>
+                                <option value="BANK BNI">BANK BNI</option>
+
+                            </select>
                             <small class="text-danger"><?php echo form_error('nama_rekening'); ?></small>
                         </div>
                         <div class="form-group">
