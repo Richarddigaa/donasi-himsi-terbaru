@@ -16,7 +16,7 @@
                 </a>
 
                 <?php
-                $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori";
+                $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori ORDER BY id desc";
                 $donasi = $this->db->query($queryDonasi)->result_array();
                 ?>
 
