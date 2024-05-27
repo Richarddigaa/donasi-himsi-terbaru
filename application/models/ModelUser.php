@@ -18,4 +18,9 @@ class ModelUser extends CI_Model
     {
         $this->db->insert('user_berdonasi', $data);
     }
+
+    public function laporWhere($where)
+    {
+        return $this->db->get_where('laporan_pencairan', $where);
+    }
 }

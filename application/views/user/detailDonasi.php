@@ -22,9 +22,10 @@
                     <!-- jika dana terkumpul sudah seusai target atau lebih maka user tidak bisa donasi lagi -->
                     <?php if ($d['dana_terkumpul'] >= $d['dana_dibutuhkan']) { ?>
                         <a class="btn btn-outline-dark mt-auto">Donasi telah mencapai target</a>
-                        <!-- jika dana belum mencapai targer maka user bida berdonasi -->
+                        <!-- jika dana telah dicairkan -->
                     <?php } elseif ($d['status_donasi'] == 'Sudah dicairkan') { ?>
                         <a class="btn btn-outline-dark mt-auto">Donasi telah dicairkan</a>
+                        <!-- jika dana belum mencapai targer maka user bida berdonasi -->
                     <?php } else { ?>
                         <a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/berdonasi/') . $d['id']; ?>">Donasi Sekarang</a>
                     <?php } ?>

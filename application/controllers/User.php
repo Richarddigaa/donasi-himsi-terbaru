@@ -215,4 +215,16 @@ class User extends CI_Controller
         $this->load->view('user/tentangKami', $data);
         $this->load->view('templates/user_footer');
     }
+
+    public function lapor_donasi()
+    {
+        $data['title'] = 'Laporan Donasi | Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['lapor'] = $this->ModelUser->laporWhere(['id_donasi' => $this->uri->segment(3)])->result_array();
+
+        $this->load->view('templates/user_header', $data);
+        $this->load->view('templates/user_navbar', $data);
+        $this->load->view('user/lapor_donasi', $data);
+        $this->load->view('templates/user_footer');
+    }
 }
