@@ -253,8 +253,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules(
             'rekening',
             'Rekening',
-            'required|min_length[3]',
-            ['required' => 'No Rekening harus diisi', 'min_length' => 'No Rekening terlalu pendek']
+            'required|min_length[11]|max_length[12]',
+            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 11 angka', 'max_length' => 'Maksimal 12 angka']
         );
 
         if ($this->form_validation->run() == false) {
@@ -441,8 +441,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules(
             'nomor_rekening',
             'Nomor Rekening',
-            'required|min_length[3]',
-            ['required' => 'No Rekening harus diisi', 'min_length' => 'No Rekening terlalu pendek']
+            'required|min_length[12]|max_length[12]',
+            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 12 angka', 'max_length' => 'Maksimal 12 angka']
         );
 
         $this->form_validation->set_rules(
