@@ -14,7 +14,7 @@
                                         INNER JOIN donasi ON user_berdonasi.id_donasi = donasi.id
                                         INNER JOIN pembayaran ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
                                         INNER JOIN user ON user_berdonasi.id_user = user.id_user
-                                        WHERE status_berdonasi = 'Sudah dikonfirmasi'
+                                        WHERE status_berdonasi = 'Menunggu Konfirmasi'
                                         ORDER BY id_berdonasi DESC";
                 $berdonasi = $this->db->query($queryBerdonasi)->result_array();
 
@@ -34,13 +34,14 @@
                                     <th scope="col">Dana Yang Didonasikan</th>
                                     <th scope="col">Bukti Transfer</th>
                                     <th scope="col">Tanggal Donasi</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if ($countData < 1) { ?>
                                     <tr>
-                                        <td colspan="5">
-                                            <h4 class="text-center my-5">Tidak ada riwayat donasi</h4>
+                                        <td colspan="9">
+                                            <h4 class="text-center my-5">Tidak ada konfirmasi</h4>
                                         </td>
                                     </tr>
                                     <?php } else {
@@ -60,6 +61,9 @@
                                                 </center>
                                             </td>
                                             <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
+                                            <td>
+                                                <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_berdonasi']; ?>" class="btn btn-primary"><i class="fas fa-check"></i></a>
+                                            </td>
                                         </tr>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

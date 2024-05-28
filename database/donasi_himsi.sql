@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2024 at 12:35 PM
+-- Generation Time: May 28, 2024 at 03:47 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -55,7 +55,7 @@ INSERT INTO `donasi` (`id`, `judul`, `id_kategori`, `dana_dibutuhkan`, `dana_ter
 (23, 'Selamatkan Hewan Disabilitas', 25, 78000000, 30000, 'Mari kita wujudkan kepedulian kita pada para hewan di luar sana. Kita tak perlu turun ke jalan lalu mengobati hewan yang sakit sendiri. Kamu bisa bantu dengan cara berdonasi. \r\nHasil donasi terkumpul di galang dana ini akan kami salurkan untuk bantu-bantu hewan yang sakit dan terluka. Kami akan berkolaborasi dengan lembaga-lembaga rehabilitasi hewan sakit, menyediakan kebutuhan pengobatan, meng-cover biaya tindakan medis, menyediakan alat bantu kesehatan seperti kursi roda. ', 'hewan_3.png', 'Belum dicairkan'),
 (24, 'Pahala Tak Terputus, Sedekah Qur\'an untuk Pesantren', 26, 150000000, 10000, '                            Rasulullah SAW bersabda: \"Salah satu amal kebaikan yang pahalanya terus terbawa kepada si mayit sampai ke alam kuburnya adalah sedekah dan mewariskan mushaf Al-Qur\'an\" (H.R. Bukhari).\r\nMungkin banyak dari kita yang belum tahu, bahwa banyak masjid dan pesantren yang kondisi mushaf al-Quran-nya memprihatinkan: lecek, lusuh, dan beberapa halamannya sobek sehingga tidak terbaca. \r\nSebagai contoh Masjid al-Ikhlas di Cililin, Kab Bandung, Jawa Barat. Di masjid tersebut, sebagian besar mushaf al-Quran-nya kotor dan tintanya sudah pudar. Jumlahnya pun sangat sedikit sehingga jemaah mesti antri dan berebutan untuk membaca kitab suci. \r\nKondisi demikian juga terjadi di pesantren. Para santri, yang sudah seharusnya menjadikan al-Quran sebagai bacaan sehari-hari mereka, harus rebutan karena jumlah mushaf yang terbatas dan tidak sebanding dengan banyaknya jumlah santri. Kondisi semacam itu tidak menyurutkan semangat para santri untuk membaca, mengkaji, dan menghafal al-Quran. \r\nTidakkah semangat tersebut mengetuk hati kita semua? Bayangkan jika mushaf al-Quran yang mereka punya kondisinya prima, tentu mereka akan lebih semangat lagi untuk mendalami kitab suci. Para Penderma, yuk bantu mereka, sisihkan harta Anda demi mushaf al-Quran yang kondisinya lebih layak untuk mereka baca.                         ', 'sosial_1.png', 'Belum dicairkan'),
 (25, 'Patungan Ambulan Gratis untuk Pasien Dhuafa', 26, 786000000, 86000000, 'Assalamualaikum warahmatullahi Wabarakatuh OrangBaik, kami dari Yayasan Sahabat Berbagi Riau ingin mengajak OrangBaik untuk membantu pasien pasien berobat menggunakan ambulans. Sewa mobil ambulance mahal, banyak kaum dhuafa tidak sanggup membayar sewa padahal situasi genting seperti sakit datangnya tiba-tiba.\r\nBanyak orang di Indonesia sulit memenuhi kebutuhannya karena keterbatasan. \r\nKehidupan mereka jauh dari kata layak begitu pun kesehatan mereka.\r\nTerbiasa sakit tanpa mendapat bantuan kesehatan. Bingung mencari pertolongan karena tidak memiliki biaya, hingga sulitnya mendapat akses kesehatan saat keadaan darurat datang.\r\nSaat keadaan darurat inilah, layanan mobil ambulance sangat mereka butuhkan.\r\nSebagai upaya untuk membantu kaum dhuafa, kami mengajak para Sobat Baik bersama Yayasan Sahabat Berbagi Riau untuk memberikan layanan ambulans gratis untuk penjemputan dan pengantaran pasien yang akan berobat.\r\n\"Allah akan senantiasa menolong hamba-Nya, selama hamba tersebut menolong saudaranya.\" (HR. Muslim)', 'sosial_2.png', 'Belum dicairkan'),
-(26, 'Akhir Tahun, Bangun Masjid Lapuk Pelosok', 27, 689000000, 680000, 'Bayangkan shalat di masjid yang terbuat dari bilik bambu saat musim hujan dan angin kencang, ngga bahaya kah?\r\nTapi, itulah yang warga Bojongsari rasakan saat shalat di Musola Al Kautsar. Sedih melihatnya, terpaksa shalat di tempat yang kondisinya bahkan tak layak. Mushola ini letaknya ada di Kampung Bojongsari, Kec. Agrabinta, Kab. Cianjur. Mushola ini pertama kali didirikan pada 15 Juni 2001. Ukurannya tak begitu besar, hanya mampu memuat 20 jamaah.\r\nTerbuat dari bahan material sederhana. Dinding bilik bambu, lantai papan kayu, atap genteng, dan plafon bilik bambu. Belum memiliki instalasi sendiri, masih menumpang rumah warga. Selama ini juga belum pernah direnovasi. Musola ini sudah rusak Sejak tahun 2013. Banyak kerusakan pada bilik bambu, atap bocor, rangka atap genteng dan plafon sangat lapuk. Mereka kekurangan biaya jadi tak bisa merenovasi. ketidaknyamanan jamaah dalam berkegiatan beribadah, mengaji maupun kegiatan lainnya. Kondisi atap yang rusak dan dinding bilik bambu yang sudah rapuh/rusak membuat para jamaah waspada saat berada didalam maupun disekitar bangunan. Jika tidak segera diperbaiki, dapat rubuh jika dilihat dari keadaannya. Belum memiliki instalasi listrik dan tidak memiliki tempat wudhu/wc sendiri.\r\nMari jadi salah satu orang baik yang memberikan mereka masjid kokoh. Agar warga Kampung Bojongsari bisa beribadah dengan nyaman.     ', 'ibadah_1.png', 'Belum dicairkan'),
+(26, 'Akhir Tahun, Bangun Masjid Lapuk Pelosok', 27, 689000000, 750000, 'Bayangkan shalat di masjid yang terbuat dari bilik bambu saat musim hujan dan angin kencang, ngga bahaya kah?\r\nTapi, itulah yang warga Bojongsari rasakan saat shalat di Musola Al Kautsar. Sedih melihatnya, terpaksa shalat di tempat yang kondisinya bahkan tak layak. Mushola ini letaknya ada di Kampung Bojongsari, Kec. Agrabinta, Kab. Cianjur. Mushola ini pertama kali didirikan pada 15 Juni 2001. Ukurannya tak begitu besar, hanya mampu memuat 20 jamaah.\r\nTerbuat dari bahan material sederhana. Dinding bilik bambu, lantai papan kayu, atap genteng, dan plafon bilik bambu. Belum memiliki instalasi sendiri, masih menumpang rumah warga. Selama ini juga belum pernah direnovasi. Musola ini sudah rusak Sejak tahun 2013. Banyak kerusakan pada bilik bambu, atap bocor, rangka atap genteng dan plafon sangat lapuk. Mereka kekurangan biaya jadi tak bisa merenovasi. ketidaknyamanan jamaah dalam berkegiatan beribadah, mengaji maupun kegiatan lainnya. Kondisi atap yang rusak dan dinding bilik bambu yang sudah rapuh/rusak membuat para jamaah waspada saat berada didalam maupun disekitar bangunan. Jika tidak segera diperbaiki, dapat rubuh jika dilihat dari keadaannya. Belum memiliki instalasi listrik dan tidak memiliki tempat wudhu/wc sendiri.\r\nMari jadi salah satu orang baik yang memberikan mereka masjid kokoh. Agar warga Kampung Bojongsari bisa beribadah dengan nyaman.     ', 'ibadah_1.png', 'Belum dicairkan'),
 (27, 'Sedekah Jariyah Bangun Masjid', 27, 700000000, 3200000, 'Para santri di Yayasan pondok pesantren tahfidz ahbaabul mukhtar saat ini belum memiliki rumah ibadah ( Masjid ) sebagai sarana untuk menunaikan kewajiban beribadah 5 waktu, dan sebagai sarana untuk belajar mempelajari ilmunya Alloh SWT, Para santri saat ini melakukan kegiatan sholat berjamaah di tempat biasa dan sangat sempit, jadi kami berfikir keras bagaimana cara untuk segera membangun Masjid untuk kegiatan para santri.\r\nPara santri di pondok pesantren tahfidz ahbaabul mukhtar sudah sejak lama belum memiliki tempat khusus untuk sembahyang ( Masjid ). Lokasi Masjid yg sedang di bangun ini terletak di tengah-tengah komplek pondok pesantren tahfidz ahbaabul mukhtar. \r\nMasjid yg saat ini sedang di bangun baru tiang- tiang saja , estimasi progres pengerjaan saat ini baru 10 % . Jadi masih sangat² membutuhkan dana yang cukup besar untuk sampai tahap dapat digunakan para santri untuk beribadah. Kendala / kesulitan yg kami hadapi dg keterbatasan dana untuk membeli bahan dan pembayaran setiap akhir pekan.\r\nKebutuhan kami berupa material yang di antaranya Besi beton untuk dak, semen, pasir dll... Kebutuhan biaya tukang di setiap akhir pekan nya. Kami mengajak rekan-rekan semua, #OrangBaik, Para Dermawan untuk bergabung menjadi bagian dari pd pembangunan Masjid di Yayasan pondok pesantren tahfidz ahbaabul mukhtar, Dengan membantu membangun Masjid, Berarti Anda semua telah membangun ISTANA Anda sendiri di Surga.\r\nKami sangat senang sekali dg adanya Galang dana melalui kitabisa ini, kami sangat bersemangat InsyaAlloh dg izin Alloh SWT, Orang² yg melimpahkan rezekinya bisa terketuk dan bisa tergerak untuk ambil bagian dlm pembangunan Masjid ini. ', 'ibadah_2.png', 'Belum dicairkan');
 
 -- --------------------------------------------------------
@@ -126,7 +126,7 @@ CREATE TABLE `pembayaran` (
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `nama_pembayaran`, `rekening`) VALUES
 (1, 'Bank Mandiri', '156002345678'),
-(2, 'Bank BCA', '5432109876'),
+(2, 'Bank BCA', '543210987667'),
 (3, 'DANA', '089123456789'),
 (4, 'GOPAY', '089123456789'),
 (5, 'OVO', '089123456789');
@@ -176,28 +176,32 @@ CREATE TABLE `user_berdonasi` (
   `id_pembayaran` int(11) NOT NULL,
   `dana_didonasikan` int(11) NOT NULL,
   `bukti` varchar(258) NOT NULL,
-  `tanggal_donasi` int(11) NOT NULL
+  `tanggal_donasi` int(11) NOT NULL,
+  `status_berdonasi` enum('Menunggu Konfirmasi','Sudah dikonfirmasi') DEFAULT 'Menunggu Konfirmasi'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_berdonasi`
 --
 
-INSERT INTO `user_berdonasi` (`id_berdonasi`, `id_user`, `id_donasi`, `id_pembayaran`, `dana_didonasikan`, `bukti`, `tanggal_donasi`) VALUES
-(6, 6, 17, 3, 50000, '50k.jpeg', 1702565194),
-(7, 10, 17, 3, 20000, '20k.jpeg', 1702565303),
-(8, 10, 21, 3, 30000, '30k.jpeg', 1702565329),
-(9, 10, 23, 3, 30000, '30k1.jpeg', 1702627544),
-(10, 10, 25, 2, 6000000, '50k1.jpeg', 1702628851),
-(11, 10, 25, 3, 80000000, '30k2.jpeg', 1702629070),
-(12, 8, 16, 2, 150000, '50k2.jpeg', 1714613355);
+INSERT INTO `user_berdonasi` (`id_berdonasi`, `id_user`, `id_donasi`, `id_pembayaran`, `dana_didonasikan`, `bukti`, `tanggal_donasi`, `status_berdonasi`) VALUES
+(6, 6, 17, 3, 50000, '50k.jpeg', 1702565194, 'Sudah dikonfirmasi'),
+(7, 10, 17, 3, 20000, '20k.jpeg', 1702565303, 'Sudah dikonfirmasi'),
+(8, 10, 21, 3, 30000, '30k.jpeg', 1702565329, 'Sudah dikonfirmasi'),
+(9, 10, 23, 3, 30000, '30k1.jpeg', 1702627544, 'Sudah dikonfirmasi'),
+(10, 10, 25, 2, 6000000, '50k1.jpeg', 1702628851, 'Sudah dikonfirmasi'),
+(11, 10, 25, 3, 80000000, '30k2.jpeg', 1702629070, 'Sudah dikonfirmasi'),
+(12, 8, 16, 2, 150000, '50k2.jpeg', 1714613355, 'Sudah dikonfirmasi'),
+(15, 10, 26, 1, 20000, '20k3.jpeg', 1716902862, 'Sudah dikonfirmasi'),
+(16, 10, 26, 3, 50000, '50k3.jpeg', 1716903833, 'Sudah dikonfirmasi'),
+(17, 10, 26, 2, 50000, '50k4.jpeg', 1716903963, 'Menunggu Konfirmasi');
 
 --
 -- Triggers `user_berdonasi`
 --
 DELIMITER $$
-CREATE TRIGGER `tambahDanaTerkumpul` AFTER INSERT ON `user_berdonasi` FOR EACH ROW BEGIN 
-	UPDATE donasi SET dana_terkumpul = dana_terkumpul + NEW.dana_didonasikan 		WHERE id = NEW.id_donasi;
+CREATE TRIGGER `tambahDanaTerkumpul` AFTER UPDATE ON `user_berdonasi` FOR EACH ROW BEGIN 
+	UPDATE donasi SET dana_terkumpul = dana_terkumpul + NEW.dana_didonasikan WHERE id = NEW.id_donasi;
  END
 $$
 DELIMITER ;
@@ -305,7 +309,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_berdonasi`
 --
 ALTER TABLE `user_berdonasi`
-  MODIFY `id_berdonasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_berdonasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_role`

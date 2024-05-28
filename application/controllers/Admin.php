@@ -331,6 +331,35 @@ class Admin extends CI_Controller
         redirect('admin/pembayaran');
     }
 
+    public function konfirmasi($id)
+    {
+        $simpan = [
+            'status_berdonasi' => "Sudah dikonfirmasi"
+        ];
+        $this->db->where('id_berdonasi', $id);
+        $this->db->update('user_berdonasi', $simpan);
+        $this->session->set_flashdata(
+            'pesan',
+            '<div class="alert alert-success alert-message" role="alert">Konfirmasi berhasil</div>
+                                <meta http-equiv="refresh" content="2">'
+        );
+        redirect('admin/konfirmasiDonasi');
+    }
+
+    public function konfirmasiDonasi()
+    {
+        $data['title'] = 'Konfirmasi Donasi | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['konfirmasi'] = $this->db->get('user_berdonasi')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/konfirmasi', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function riwayatDonasi()
     {
         $data['title'] = 'Riwayat Donasi | Admin Donasi Himsi';

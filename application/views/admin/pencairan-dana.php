@@ -12,7 +12,8 @@
                 <?= form_error('pencairanDana', '<div class="alert alert-danger alert-message" role="alert">', '</div>'); ?>
 
                 <?php
-                $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE status_donasi = 'Belum dicairkan' and dana_terkumpul > 100000";
+                $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori 
+                                    WHERE status_donasi = 'Belum dicairkan' and dana_terkumpul >= 100000";
                 $donasi = $this->db->query($queryDonasi)->result_array();
                 ?>
 
