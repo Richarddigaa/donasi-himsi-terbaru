@@ -37,7 +37,7 @@
                                 <option value="">Pilih Metode Pembayaran</option>
                                 <?php
                                 foreach ($pembayaran as $p) { ?>
-                                    <option value="<?= $p['id_pembayaran']; ?>"><?= $p['nama_pembayaran'] . ' - No Rekening : ' . $p['rekening'] . ' An. Donasi Kita'; ?></option>
+                                    <option value="<?= $p['id_pembayaran']; ?>"><?= $p['nama_pembayaran'] . ' - No Rekening : ' . $p['rekening'] . ' An. Donasi Himsi'; ?></option>
                                 <?php } ?>
                             </select>
                             <small class="text-danger"><?php echo form_error('pembayaran'); ?></small>

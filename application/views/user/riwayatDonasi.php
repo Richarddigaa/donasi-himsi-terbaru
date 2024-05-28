@@ -44,6 +44,8 @@
                                         <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
                                         <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
                                             <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>">Cek Donasi</a></td>
+                                        <?php } else { ?>
+                                            <td><a class="btn btn-outline-dark" href="">Belum ada laporan</a></td>
                                         <?php } ?>
                                     </tr>
                                     <?php $i++; ?>
