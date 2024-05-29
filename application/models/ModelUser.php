@@ -23,4 +23,9 @@ class ModelUser extends CI_Model
     {
         return $this->db->get_where('laporan_pencairan', $where);
     }
+
+    public function strukWhere($where)
+    {
+        return $this->db->get_where('user_berdonasi', $where);
+    }
 }

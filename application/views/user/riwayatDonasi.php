@@ -22,7 +22,8 @@
                                 <th scope="col">Metode Pembayaran</th>
                                 <th scope="col">Dana Yang Didonasikan</th>
                                 <th scope="col">Tanggal Donasi</th>
-                                <th scope="col">Aksi</th>
+                                <th scope="col">Konfirmasi</th>
+                                <th scope="col">Rincian dana donasi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,10 +43,15 @@
                                         <td><span><?php echo $b['nama_pembayaran']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                         <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
-                                        <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
-                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>">Cek Donasi</a></td>
+                                        <?php if ($b['status_berdonasi'] == 'Menunggu Konfirmasi') { ?>
+                                            <td>PEND</td>
                                         <?php } else { ?>
-                                            <td><a class="btn btn-outline-dark" href="">Belum ada laporan</a></td>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_berdonasi']; ?>"><i class="fas fa-file"></i></a></td>
+                                        <?php } ?>
+                                        <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>"><i class="fas fa-eye"></i> Cek Disini</a></td>
+                                        <?php } else { ?>
+                                            <td>Belum Ada</td>
                                         <?php } ?>
                                     </tr>
                                     <?php $i++; ?>

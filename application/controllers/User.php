@@ -87,7 +87,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules(
             'dana',
             'Dana Yang Akan Didonasikan',
-            'required|min_length[4]',
+                'required|min_length[4]',
             ['required' => 'Dana Yang Akan Didonasikan harus diisi', 'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000']
         );
 
@@ -132,7 +132,7 @@ class User extends CI_Controller
                 $this->ModelUser->simpanBerdonasi($data);
                 $this->session->set_flashdata(
                     'pesan',
-                    '<div class="alert alert-success alert-message" role="alert">Yeay Kamu Berhasil Membantu Mereka Yang Membutuhkan</div>
+                        '<div class="alert alert-success alert-message" role="alert">Terima kasih atas donasi yang anda telah berikan, untuk melihat donasi sudah dikonfirmasi atau belum anda dapat melihat halaman riwayat donasi </div>
                                     <meta http-equiv="refresh" content="4">'
                 );
                 redirect('user/donasi');
@@ -226,5 +226,31 @@ class User extends CI_Controller
         $this->load->view('templates/user_navbar', $data);
         $this->load->view('user/lapor_donasi', $data);
         $this->load->view('templates/user_footer');
+    }
+
+    public function struk($id)
+    {
+        $data['data_berdonasi'] = $this->db->query("SELECT * FROM user_berdonasi 
+            INNER JOIN user 
+            ON user_berdonasi.id_user = user.id_user
+            INNER JOIN donasi
+            ON user_berdonasi.id_donasi = donasi.id 
+            INNER JOIN pembayaran
+            ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
+            WHERE user_berdonasi.id_berdonasi = $id ")->result_array();
+        $sroot = $_SERVER['DOCUMENT_ROOT'];
+        include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
+
+        $dompdf = new Dompdf\Dompdf();
+        $this->load->view('user/pdf-struk.php', $data);
+        $paper_size  = 'A4'; // ukuran kertas 
+        $orientation = 'potrait'; //tipe format kertas potrait atau landscape 
+        $html = $this->output->get_output();
+        $dompdf->set_paper($paper_size, $orientation);
+        //Convert to PDF 
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream("struk_donasi_himsi.pdf", array('Attachment' => 0));
+        // nama file pdf yang di hasilkan
     }
 }
