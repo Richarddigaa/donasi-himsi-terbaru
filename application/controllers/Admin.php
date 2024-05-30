@@ -470,8 +470,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules(
             'nomor_rekening',
             'Nomor Rekening',
-            'required|min_length[12]|max_length[12]',
-            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 12 angka', 'max_length' => 'Maksimal 12 angka']
+            'required|min_length[10]|max_length[12]',
+            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 10 angka', 'max_length' => 'Maksimal 12 angka']
         );
 
         $this->form_validation->set_rules(
