@@ -11,7 +11,7 @@
 
                 <?= form_error('donasi', '<div class="alert alert-danger alert-message" role="alert">', '</div>'); ?>
 
-                <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newDonasiModal">
+                <a href="<?php echo base_url(); ?>admin/tambah_donasi/" class="btn btn-primary mb-3">
                     <i class="fas fa-fw fa-plus mr-2"></i>Tambah Donasi
                 </a>
 
@@ -72,41 +72,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-<div class="modal fade" id="newDonasiModal" tabindex="-1" role="dialog" aria-labelledby="newDonasiModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newDonasiModalLabel">Tambah Donasi</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-            </div>
-            <form action="<?= base_url('admin/donasi'); ?>" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="donasi" name="donasi" placeholder="Masukkan Judul Donasi">
-                    </div>
-                    <div class="form-group">
-                        <select name="kategori" class="form-control form-control-user">
-                            <option value="">Pilih Kategori</option>
-                            <?php
-                            foreach ($kategori as $k) { ?>
-                                <option value="<?= $k['id_kategori']; ?>"><?= $k['kategori']; ?></option> <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control form-control-user" id="dana_dibutuhkan" name="dana_dibutuhkan" placeholder="Masukkan Dana Yang Dibutuhkan">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="detail" id="detail" cols="30" rows="10" class="form-control form-control-user" placeholder="Masukkan Detail Donasi"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="file" class="form-control form-control-user" id="gambar" name="gambar">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

@@ -15,7 +15,7 @@
                                         INNER JOIN pembayaran ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
                                         INNER JOIN user ON user_berdonasi.id_user = user.id_user
                                         WHERE status_berdonasi = 'Menunggu Konfirmasi'
-                                        ORDER BY id_berdonasi DESC";
+                                        ORDER BY id_berdonasi";
                 $berdonasi = $this->db->query($queryBerdonasi)->result_array();
 
                 $countData = $this->db->query($queryBerdonasi)->num_rows();

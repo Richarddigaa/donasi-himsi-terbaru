@@ -39,7 +39,7 @@
                             <tbody>
                                 <?php if ($countData < 1) { ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="8">
                                             <h4 class="text-center my-5">Tidak ada riwayat donasi</h4>
                                         </td>
                                     </tr>

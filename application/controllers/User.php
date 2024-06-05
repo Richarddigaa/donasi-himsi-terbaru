@@ -8,7 +8,7 @@ class User extends CI_Controller
     {
         $data['title'] = 'Home | Donasi Himsi';
         $data['donasi'] = $this->db->query("SELECT * FROM donasi WHERE status_donasi = 'Belum dicairkan' ORDER BY id DESC LIMIT 8 ")->result_array();
-        
+
         if ($this->session->userdata('email')) {
             $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
@@ -18,7 +18,7 @@ class User extends CI_Controller
             $this->load->view('templates/user_footer');
         } else {
             $data['user'] = 'pengunjung';
-          
+
             $this->load->view('templates/user_header', $data);
             $this->load->view('templates/user_navbar', $data);
             $this->load->view('user/index', $data);
@@ -37,7 +37,6 @@ class User extends CI_Controller
         $this->load->view('templates/user_navbar', $data);
         $this->load->view('user/donasi', $data);
         $this->load->view('templates/user_footer');
-       
     }
 
     public function detailDonasi()
@@ -78,66 +77,70 @@ class User extends CI_Controller
     {
         $data['title'] = 'Detail Donasi | Donasi Himsi';
         if ($this->session->userdata('email')) {
-        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
+            $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
 
-        $data['pembayaran'] = $this->db->get('pembayaran')->result_array();
+            $data['pembayaran'] = $this->db->get('pembayaran')->result_array();
 
-        $this->form_validation->set_rules(
-            'dana',
-            'Dana Yang Akan Didonasikan',
+            $queryIDBerdonasi = "SELECT max(id_berdonasi) as maxID FROM user_berdonasi";
+            $data['idB'] = $this->db->query($queryIDBerdonasi)->result_array();
+
+            $this->form_validation->set_rules(
+                'dana',
+                'Dana Yang Akan Didonasikan',
                 'required|min_length[4]',
-            ['required' => 'Dana Yang Akan Didonasikan harus diisi', 'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000']
-        );
+                ['required' => 'Dana Yang Akan Didonasikan harus diisi', 'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000']
+            );
 
-        $this->form_validation->set_rules(
-            'pembayaran',
-            'Metode Pembayaran',
-            'required',
-            ['required' => 'Silahkan Pilih Metode Pembayaran']
-        );
+            $this->form_validation->set_rules(
+                'pembayaran',
+                'Metode Pembayaran',
+                'required',
+                ['required' => 'Silahkan Pilih Metode Pembayaran']
+            );
 
-        //konfigurasi sebelum gambar diupload 
-        $config['upload_path'] = './assets/img/bukti-transfer/';
-        $config['allowed_types'] = 'jpg|png|jpeg';
+            //konfigurasi sebelum gambar diupload 
+            $config['upload_path'] = './assets/img/bukti-transfer/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
 
-        $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/user_header', $data);
-            $this->load->view('templates/user_navbar', $data);
-            $this->load->view('user/berdonasi', $data);
-            $this->load->view('templates/user_footer');
-        } else {
-            if (!$this->upload->do_upload('gambar')) {
-                $this->session->set_flashdata(
-                    'pesan',
-                    '<div class="alert alert-danger alert-message" role="alert">Silahkan Upload Bukti Transfer Dahulu</div>
-                                    <meta http-equiv="refresh" content="4">'
-                );
-                redirect('user/donasi');
+            if ($this->form_validation->run() == false) {
+                $this->load->view('templates/user_header', $data);
+                $this->load->view('templates/user_navbar', $data);
+                $this->load->view('user/berdonasi', $data);
+                $this->load->view('templates/user_footer');
             } else {
-                $gambar = $this->upload->data();
-                $img = $gambar['file_name'];
+                if (!$this->upload->do_upload('gambar')) {
+                    $this->session->set_flashdata(
+                        'pesan',
+                        '<div class="alert alert-danger alert-message" role="alert">Silahkan Upload Bukti Transfer Dahulu</div>
+                                    <meta http-equiv="refresh" content="4">'
+                    );
+                    redirect('user/donasi');
+                } else {
+                    $gambar = $this->upload->data();
+                    $img = $gambar['file_name'];
 
-                $data = [
-                    'id_user' => $this->input->post('id_user', true),
-                    'id_donasi' => $this->input->post('id_donasi', true),
-                    'id_pembayaran' => $this->input->post('pembayaran', true),
-                    'dana_didonasikan' => $this->input->post('dana', true),
-                    'tanggal_donasi' => time(),
-                    'bukti' => $img
-                ];
-                $this->ModelUser->simpanBerdonasi($data);
-                $this->session->set_flashdata(
-                    'pesan',
+                    $data = [
+                        'id_berdonasi' => $this->input->post('id_berdonasi', true),
+                        'id_user' => $this->input->post('id_user', true),
+                        'id_donasi' => $this->input->post('id_donasi', true),
+                        'id_pembayaran' => $this->input->post('pembayaran', true),
+                        'dana_didonasikan' => $this->input->post('dana', true),
+                        'tanggal_donasi' => time(),
+                        'bukti' => $img
+                    ];
+                    $this->ModelUser->simpanBerdonasi($data);
+                    $this->session->set_flashdata(
+                        'pesan',
                         '<div class="alert alert-success alert-message" role="alert">Terima kasih atas donasi yang anda telah berikan, untuk melihat donasi sudah dikonfirmasi atau belum anda dapat melihat halaman riwayat donasi </div>
                                     <meta http-equiv="refresh" content="4">'
-                );
-                redirect('user/donasi');
+                    );
+                    redirect('user/donasi');
+                }
             }
-        }
         } else {
             $this->session->set_flashdata(
                 'pesan',
@@ -237,7 +240,7 @@ class User extends CI_Controller
             ON user_berdonasi.id_donasi = donasi.id 
             INNER JOIN pembayaran
             ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
-            WHERE user_berdonasi.id_berdonasi = $id ")->result_array();
+            WHERE user_berdonasi.id_berdonasi = '$id' ")->result_array();
         $sroot = $_SERVER['DOCUMENT_ROOT'];
         include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
 

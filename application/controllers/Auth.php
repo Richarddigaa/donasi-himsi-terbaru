@@ -75,6 +75,10 @@ class Auth extends CI_Controller
     public function register()
     {
 
+        $queryIDUser = "SELECT max(id_user) as maxID FROM user";
+        $data['idU'] = $this->db->query($queryIDUser)->result_array();
+
+
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required', [
             'required' => 'Nama Belum diisi!!'
         ]);
@@ -99,11 +103,12 @@ class Auth extends CI_Controller
             $this->load->view('templates/auth_footer');
         } else {
             $data = [
+                'id_user' => $this->input->post('id_user', true),
                 'nama' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'gambar' => 'logo-donasi.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
+                'role_id' => '002',
                 'tanggal_input' => time()
             ];
 

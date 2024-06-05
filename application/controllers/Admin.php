@@ -32,6 +32,21 @@ class Admin extends CI_Controller
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/kategori', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambah_kategori()
+    {
+        $data['title'] = 'Tambah Kategori | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $queryIDKategori = "SELECT max(id_kategori) as maxID FROM kategori";
+        $data['idK'] = $this->db->query($queryIDKategori)->result_array();
+
         $this->form_validation->set_rules(
             'kategori',
             'Kategori',
@@ -43,13 +58,16 @@ class Admin extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/kategori', $data);
+            $this->load->view('admin/tambah-kategori', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->db->insert('kategori', ['kategori' => $this->input->post('kategori')]);
+            $this->db->insert('kategori', [
+                'id_kategori' => $this->input->post('id_kategori'),
+                'kategori' => $this->input->post('kategori')
+            ]);
             $this->session->set_flashdata(
                 'pesan',
-                '<div class="alert alert-success alert-message" role="alert">Menu berhasil ditambahkan</div>
+                '<div class="alert alert-success alert-message" role="alert">Kategori berhasil ditambahkan</div>
                                     <meta http-equiv="refresh" content="2">'
             );
             redirect('admin/kategori');
@@ -109,6 +127,23 @@ class Admin extends CI_Controller
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/donasi', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambah_donasi()
+    {
+        $data['title'] = 'Tambah Donasi | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['kategori'] = $this->db->get('kategori')->result_array();
+
+        $queryIDDonasi = "SELECT max(id) as maxID FROM donasi";
+        $data['idD'] = $this->db->query($queryIDDonasi)->result_array();
+
         $this->form_validation->set_rules('donasi', 'Judul Donasi', 'required|min_length[3]', [
             'required' => 'Judul Donasi harus diisi',
             'min_length' => 'Judul Donasi terlalu pendek'
@@ -133,7 +168,7 @@ class Admin extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/donasi', $data);
+            $this->load->view('admin/tambah-donasi', $data);
             $this->load->view('templates/footer');
         } else {
             if (!$this->upload->do_upload('gambar')) {
@@ -143,6 +178,7 @@ class Admin extends CI_Controller
                 $img = $gambar['file_name'];
 
                 $data = [
+                    'id' => $this->input->post('id_donasi', true),
                     'judul' => $this->input->post('donasi', true),
                     'id_kategori' => $this->input->post('kategori', true),
                     'dana_dibutuhkan' => $this->input->post('dana_dibutuhkan', true),
@@ -243,6 +279,21 @@ class Admin extends CI_Controller
 
         $data['pembayaran'] = $this->db->get('pembayaran')->result_array();
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/pembayaran', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambah_pembayaran()
+    {
+        $data['title'] = 'Tambah Metode Pembayaran | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $queryIDPembayaran = "SELECT max(id_pembayaran) as maxID FROM pembayaran";
+        $data['idP'] = $this->db->query($queryIDPembayaran)->result_array();
+
         $this->form_validation->set_rules(
             'pembayaran',
             'Pembayaran',
@@ -253,18 +304,19 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules(
             'rekening',
             'Rekening',
-            'required|min_length[11]|max_length[12]',
-            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 11 angka', 'max_length' => 'Maksimal 12 angka']
+            'required|min_length[10]|max_length[12]',
+            ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 10 angka', 'max_length' => 'Maksimal 12 angka']
         );
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/pembayaran', $data);
+            $this->load->view('admin/tambah-pembayaran', $data);
             $this->load->view('templates/footer');
         } else {
             $this->db->insert('pembayaran', [
+                'id_pembayaran' => $this->input->post('id_pembayaran'),
                 'nama_pembayaran' => $this->input->post('pembayaran'),
                 'rekening' => $this->input->post('rekening')
             ]);
@@ -460,6 +512,9 @@ class Admin extends CI_Controller
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
+        $queryIDPencairan = "SELECT max(id_laporan) as maxID FROM laporan_pencairan";
+        $data['idPe'] = $this->db->query($queryIDPencairan)->result_array();
+
         $this->form_validation->set_rules(
             'nama_rekening',
             'Nama Rekening',
@@ -502,6 +557,7 @@ class Admin extends CI_Controller
             $this->db->update('donasi', $simpan);
 
             $this->db->insert('laporan_pencairan', [
+                'id_laporan' => $this->input->post('id_laporan', true),
                 'id_donasi' => $this->input->post('id_donasi', true),
                 'nama_donasi' => $this->input->post('nama_donasi', true),
                 'kategori_donasi' => $this->input->post('kategori_donasi', true),

@@ -11,7 +11,7 @@
 
                 <?= form_error('kategori', '<div class="alert alert-danger alert-message" role="alert">', '</div>'); ?>
 
-                <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newKategoriModal">
+                <a href="<?php echo base_url(); ?>admin/tambah_kategori/" class="btn btn-primary mb-3">
                     <i class="fas fa-fw fa-plus mr-2"></i>Tambah Kategori
                 </a>
                 <div class="widget">
@@ -49,26 +49,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-<div class="modal fade" id="newKategoriModal" tabindex="-1" role="dialog" aria-labelledby="newKategoriModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newKategoriModalLabel">Tambah kategori</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-            </div>
-            <form action="<?= base_url('admin/kategori'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="kategori" name="kategori" placeholder="Masukkan Kategori">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

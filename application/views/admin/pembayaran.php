@@ -11,7 +11,7 @@
 
                 <?= form_error('pembayaran', '<div class="alert alert-danger alert-message" role="alert">', '</div>'); ?>
 
-                <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newPembayaranModal">
+                <a href="<?php echo base_url(); ?>admin/tambah_Pembayaran/" class="btn btn-primary mb-3">
                     <i class="fas fa-fw fa-plus mr-2"></i>Tambah Metode Pembayaran
                 </a>
                 <div class="widget">
@@ -51,29 +51,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-<div class="modal fade" id="newPembayaranModal" tabindex="-1" role="dialog" aria-labelledby="newPembayaranModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newPembayaranModalLabel">Tambah Metode Pembayaran</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-            </div>
-            <form action="<?= base_url('admin/pembayaran'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="pembayaran" name="pembayaran" placeholder="Masukkan Nama Pembayaran">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control form-control-user" id="rekening" name="rekening" placeholder="Masukkan Rekening">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
