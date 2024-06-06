@@ -36,7 +36,7 @@
 
             </tbody>
         </table>
-        <p>Kami mengucapkan terima kasih yang sebesar-besarnya atas donasi yang Anda berikan. Dukungan Anda sangat berarti bagi campaign ini untuk menjalankan program dan kegiatan yang telah direncanakan.Semoga kebaikan Anda dibalas dengan ebaikan yang berlipat ganda.</p>
+        <p>Kami mengucapkan terima kasih yang sebesar-besarnya atas donasi yang Anda berikan. Dukungan Anda sangat berarti bagi campaign ini untuk menjalankan program dan kegiatan yang telah direncanakan.Semoga kebaikan Anda dibalas dengan kebaikan yang berlipat ganda.</p>
         <p>Terima kasih atas kepercayaan dan dukungan Anda</p>
         <p>Hormat kami,</p>
         <p>DONASI HIMSI</p>

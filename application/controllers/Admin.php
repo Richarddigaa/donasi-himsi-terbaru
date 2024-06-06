@@ -577,6 +577,70 @@ class Admin extends CI_Controller
         }
     }
 
+    public function upload_buktiPencairan()
+    {
+        $data['title'] = 'Upload bukti penyaluran donasi | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/upload_buktipenyaluran');
+        $this->load->view('templates/footer');
+    }
+
+    public function uploadBukti_Donasi()
+    {
+        $data['title'] = 'Upload Bukti | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $data['upload'] = $this->ModelAdmin->uploadWhere(['id_laporan' => $this->uri->segment(3)])->result_array();
+        $this->form_validation->set_rules(
+            'bukti',
+            'Bukti Laporan',
+            'max_size',
+            ['max_size' => '4096']
+        );
+
+        $config['upload_path'] = './assets/img/upload/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+
+        $this->load->library('upload', $config);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/upload_bukti', $data);
+            $this->load->view('templates/footer');
+        } else { //konfigurasi sebelum gambar diupload 
+            if ($this->upload->do_upload('bukti')) {
+                $gambar = $this->upload->data();
+                unlink('./assets/img/upload/' . $this->input->post('old_pict', TRUE));
+                $img = $gambar['file_name'];
+                $this->session->set_flashdata(
+                    'pesan',
+                    '<div class="alert alert-success alert-message" role="alert">Kategori berhasil diupdate</div>
+                                    <meta http-equiv="refresh" content="2">'
+                );
+            } else {
+                $img = $this->input->post('old_pict', TRUE);
+                $this->session->set_flashdata(
+                    'pesan',
+                    '<div class="alert alert-danger alert-message" role="alert">Kategori tidak diupdate</div>
+                                    <meta http-equiv="refresh" content="2">'
+                );
+            }
+            $data = [
+                'bukti_pencairan' => $img
+            ];
+            $this->ModelAdmin->uploadBukti($data, ['id_laporan' => $this->input->post('id_laporan')]);
+            redirect('admin/upload_buktiPencairan');
+        }
+    }
+
+    
+
     public function laporanPencairan()
     {
         $data['title'] = 'Laporan Pencairan Dana | Admin Donasi Himsi';

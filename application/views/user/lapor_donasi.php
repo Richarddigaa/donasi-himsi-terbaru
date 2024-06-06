@@ -24,7 +24,11 @@
                     <br>
                     <?= $l['detail_pencairan'] ?>
                 </p>
-            <?php } ?>
+        </div>
+        <h6 class="border-bottom border-gray fs-5 fw-bold pb-2 mb-0 text-white mt-2">Bukti Penyaluran Dana</h6>
+        <div class="d-flex text-muted pt-3">
+            <img src="<?= base_url('assets/img/upload/') . $l['bukti_pencairan']; ?>" style="display: block;width: 700px;;margin-left: auto;margin-right: auto;" alt="Donasi Himsi">
         </div>
     </div>
+<?php } ?>
 </div>

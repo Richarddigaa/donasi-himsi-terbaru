@@ -48,4 +48,16 @@ class ModelAdmin extends CI_Model
         $this->db->where('id_pembayaran', $id);
         $this->db->delete('pembayaran');
     }
+
+    public function uploadBukti($data = null, $where = null)
+    {
+        $this->db->update('laporan_pencairan', $data, $where);
+    }
+
+    public function uploadWhere($where)
+    {
+        return $this->db->get_where('laporan_pencairan', $where);
+    }
+
+
 }

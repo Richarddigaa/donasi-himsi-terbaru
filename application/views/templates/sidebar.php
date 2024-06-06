@@ -60,6 +60,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link pb-0" href="<?= base_url('admin/upload_buktiPencairan'); ?>">
+            <i class="fas fa-camera"></i>
+            <span>Unggah bukti penyaluran</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/laporanPencairan'); ?>">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Laporan Pencairan</span>
