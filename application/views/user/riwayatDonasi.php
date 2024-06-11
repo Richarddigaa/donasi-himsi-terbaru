@@ -1,4 +1,4 @@
-<div class="col-11 grid-margin stretch-card py-5 mt-5" style="margin-left: 50px;">
+<div class="col-11 grid-margin stretch-card py-5 mt-5" style="margin-left: auto; margin-right: auto">
     <div class="card">
         <div class="card-body">
 
@@ -44,12 +44,14 @@
                                         <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                         <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
                                         <?php if ($b['status_berdonasi'] == 'Menunggu Konfirmasi') { ?>
-                                            <td>PEND</td>
+                                            <td>
+                                                <h6 class="btn btn-outline-secondary">Pending</h6>
+                                            </td>
                                         <?php } else { ?>
-                                            <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_berdonasi']; ?>"><i class="fas fa-file"></i></a></td>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_berdonasi']; ?>"><i class="fas fa-fw fa-file"></i> Lihat</a></td>
                                         <?php } ?>
                                         <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
-                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>"><i class="fas fa-eye"></i> Cek Disini</a></td>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>"><i class="fas fa-fw fa-eye"></i> Cek Disini</a></td>
                                         <?php } else { ?>
                                             <td>Belum Ada</td>
                                         <?php } ?>

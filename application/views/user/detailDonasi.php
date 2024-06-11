@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-lg-6 offset-lg-1">
                     <h1><?php echo $d['judul']; ?></h1>
-                    <p class="fs-5">
+                    <p class="fs-5 lh-sm" style="text-align: justify;">
                         <?php echo $d['detail']; ?>
                     </p>
                     <p class="fs-3 text-primary" style="font-weight: bold;">

@@ -1,6 +1,6 @@
 <!-- Header-->
 <header>
-    <div class="container-fluid banner d-flex align-items-center   ">
+    <div class="container-fluid banner d-flex align-items-center">
         <div class="container text-center text-black">
             <div class="col-md-8 offset-md-2">
                 <form method="get" action="<?= base_url('user/donasi') ?>">
