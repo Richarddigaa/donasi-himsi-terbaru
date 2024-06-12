@@ -123,12 +123,22 @@ class User extends CI_Controller
                     $gambar = $this->upload->data();
                     $img = $gambar['file_name'];
 
+                    // Fungsi untuk menghapus format Rupiah dan mengubah menjadi angka
+                    function bersihkanRupiah($string)
+                    {
+                        $string = str_replace('Rp', '', $string);
+                        $string = str_replace('.', '', $string);
+                        return $string;
+                    }
+                    $dana = $this->input->post('dana', true);
+                    $dana_rupiah = bersihkanRupiah($dana);
+
                     $data = [
                         'id_berdonasi' => $this->input->post('id_berdonasi', true),
                         'id_user' => $this->input->post('id_user', true),
                         'id_donasi' => $this->input->post('id_donasi', true),
                         'id_pembayaran' => $this->input->post('pembayaran', true),
-                        'dana_didonasikan' => $this->input->post('dana', true),
+                        'dana_didonasikan' => $dana_rupiah,
                         'tanggal_donasi' => time(),
                         'bukti' => $img
                     ];

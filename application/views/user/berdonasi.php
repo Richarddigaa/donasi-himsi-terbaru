@@ -41,7 +41,7 @@
                         <div class="form-group row m-3">
                             <label for="dana" class="col-sm-2 col-form-label">Dana Yang Didonasikan</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control form-control-user" id="dana" name="dana" placeholder=" Masukan Nominal" required>
+                                <input type="text" class="form-control form-control-user" onkeyup="formatInputRupiah(this)" id="dana" name="dana" placeholder=" Masukan Nominal" required>
                                 <small class="text-danger"><?php echo form_error('dana'); ?></small>
                             </div>
                         </div>
