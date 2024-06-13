@@ -34,6 +34,7 @@
                         <form action="<?= base_url('admin/inputPencairan/' . $data->id) ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id_laporan" value="<?= $ID ?>">
                             <input type="hidden" name="id_donasi" value="<?= $d['id'] ?>">
+                            <input type="hidden" name="dana_cair" value="<?= $d['dana_terkumpul'] ?>">
                             <div class="form-group">
                                 <label for="nama_donasi" class="col-sm-2 col-form-label">Nama Donasi</label>
                                 <input type="text" class="form-control form-control-user" id="nama_donasi" name="nama_donasi" value="<?= $d['judul'] ?>" readonly>
@@ -44,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dana_cair" class="col-sm-2 col-form-label">Dana Yang Dicairkan</label>
-                                <input type="number" class="form-control form-control-user" id="dana_cair" name="dana_cair" value="<?= $d['dana_terkumpul'] ?>" readonly>
+                                <input type="text" class="form-control form-control-user" value="<?= "Rp. " . number_format($d['dana_terkumpul'], 2, ',', '.'); ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="nama_rekening" class="col-sm-2 col-form-label">Pilih Rekening</label>

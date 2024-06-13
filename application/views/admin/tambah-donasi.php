@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Yang Dibutuhkan</label>
-                            <input type="number" class="form-control form-control-user" id="dana_dibutuhkan" name="dana_dibutuhkan" placeholder="Masukkan Dana Yang Dibutuhkan">
+                            <input type="text" class="form-control form-control-user" onkeyup="formatInputRupiah(this)" id="dana_dibutuhkan" name="dana_dibutuhkan" placeholder="Masukkan Dana Yang Dibutuhkan">
                             <small class="text-danger"><?php echo form_error('dana_dibutuhkan'); ?></small>
                         </div>
                         <div class="form-group">

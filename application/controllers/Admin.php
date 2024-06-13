@@ -177,11 +177,21 @@ class Admin extends CI_Controller
                 $gambar = $this->upload->data();
                 $img = $gambar['file_name'];
 
+                // Fungsi untuk menghapus format Rupiah dan mengubah menjadi angka
+                function bersihkanRupiah($string)
+                {
+                    $string = str_replace('Rp', '', $string);
+                    $string = str_replace('.', '', $string);
+                    return $string;
+                }
+                $dana = $this->input->post('dana_dibutuhkan', true);
+                $dana_rupiah = bersihkanRupiah($dana);
+
                 $data = [
                     'id' => $this->input->post('id_donasi', true),
                     'judul' => $this->input->post('donasi', true),
                     'id_kategori' => $this->input->post('kategori', true),
-                    'dana_dibutuhkan' => $this->input->post('dana_dibutuhkan', true),
+                    'dana_dibutuhkan' => $dana_rupiah,
                     'detail' => $this->input->post('detail', true),
                     'dana_terkumpul' => 0,
                     'gambar' => $img
@@ -639,7 +649,7 @@ class Admin extends CI_Controller
         }
     }
 
-    
+
 
     public function laporanPencairan()
     {
