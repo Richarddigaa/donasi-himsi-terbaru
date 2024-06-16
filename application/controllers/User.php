@@ -89,7 +89,7 @@ class User extends CI_Controller
             $this->form_validation->set_rules(
                 'dana',
                 'Dana Yang Akan Didonasikan',
-                'required|min_length[4]',
+                'required|min_length[7]',
                 ['required' => 'Dana Yang Akan Didonasikan harus diisi', 'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000']
             );
 

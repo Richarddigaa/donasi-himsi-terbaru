@@ -24,9 +24,9 @@
                     <form action="<?= base_url('admin/tambah_pembayaran/') ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id_pembayaran" value="<?= $ID ?>">
                         <div class="form-group">
-                            <label for="nama_pembayaran" class="col-sm-2 col-form-label">Nama Rekening</label>
+                            <label for="pembayaran" class="col-sm-2 col-form-label">Nama Rekening</label>
                             <input type="text" class="form-control form-control-user" id="pembayaran" name="pembayaran" placeholder="Masukkan Nama Rekening">
-                            <small class="text-danger"><?php echo form_error('nama_pembayaran'); ?></small>
+                            <small class="text-danger"><?php echo form_error('pembayaran'); ?></small>
                         </div>
                         <div class="form-group">
                             <label for="rekening" class="col-sm-2 col-form-label">No Rekening</label>

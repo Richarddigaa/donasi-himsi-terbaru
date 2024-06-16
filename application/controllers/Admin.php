@@ -172,7 +172,12 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             if (!$this->upload->do_upload('gambar')) {
-                echo "Gagal upload gambar";
+                $this->session->set_flashdata(
+                    'pesan',
+                    '<div class="alert alert-danger alert-message" role="alert">Silahkan Upload Gambar</div>
+                                <meta http-equiv="refresh" content="4">'
+                );
+                redirect('admin/tambah_donasi');
             } else {
                 $gambar = $this->upload->data();
                 $img = $gambar['file_name'];

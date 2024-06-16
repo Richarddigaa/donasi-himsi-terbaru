@@ -20,6 +20,7 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <?php echo $this->session->flashdata('pesan'); ?>
                     <h4 class="card-title mb-4">Tambah Donasi</h4>
                     <form action="<?= base_url('admin/tambah_donasi/') ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id_donasi" value="<?= $ID ?>">
@@ -36,6 +37,7 @@
                                 foreach ($kategori as $k) { ?>
                                     <option value="<?= $k['id_kategori']; ?>"><?= $k['kategori']; ?></option> <?php } ?>
                             </select>
+                            <small class="text-danger"><?php echo form_error('kategori'); ?></small>
                         </div>
                         <div class="form-group">
                             <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Yang Dibutuhkan</label>
