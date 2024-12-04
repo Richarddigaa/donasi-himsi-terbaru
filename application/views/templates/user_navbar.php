@@ -23,6 +23,12 @@
                                 </a>
                             </li>
                             <li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('user/transaksi'); ?>">
+                                    <i class="fas fa-fw fa-clipboard-list"></i>transaksi
+                                </a>
+                            </li>
+                            <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>

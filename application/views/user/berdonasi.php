@@ -16,10 +16,10 @@
 
                 foreach ($donasi as $d) {
             ?>
-                    <form action="<?= base_url('user/berdonasi/') . $d['id'] ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('user/berdonasi/') . $d['id_donasi'] ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id_berdonasi" value="<?= $ID ?>">
-                        <input type="hidden" name="id_donasi" value="<?= $d['id'] ?>">
-                        <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
+                        <input type="hidden" name="id_donasi" value="<?= $d['id_donasi'] ?>">
+                        <input type="hidden" name="id_user" value="<?= $user['id_donatur'] ?>">
                         <div class="form-group row m-3">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="form-group row m-3">
-                            <label for="dana" class="col-sm-2 col-form-label">Dana Yang Didonasikan</label>
+                            <label for="dana" class="col-sm-2 col-form-label">Dana Didonasikan</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control form-control-user" onkeyup="formatInputRupiah(this)" id="dana" name="dana" placeholder=" Masukan Nominal">
                                 <small class="text-danger"><?php echo form_error('dana'); ?></small>
@@ -52,16 +52,10 @@
                                     <option value="">Pilih Metode Pembayaran</option>
                                     <?php
                                     foreach ($pembayaran as $p) { ?>
-                                        <option value="<?= $p['id_pembayaran']; ?>"><?= $p['nama_pembayaran'] . ' - No Rekening : ' . $p['rekening'] . ' An. Donasi Himsi'; ?></option>
+                                        <option value="<?= $p['id_pembayaran']; ?>"><?= $p['nama_bank'] ?></option>
                                     <?php } ?>
                                 </select>
                                 <small class="text-danger"><?php echo form_error('pembayaran'); ?></small>
-                            </div>
-                        </div>
-                        <div class="form-group row m-3">
-                            <label for="gambar" class="col-sm-2 col-form-label">Silahkan Upload Bukti Transfer</label>
-                            <div class="col-sm-10">
-                                <input type="file" class="form-control form-control-user" id="gambar" name="gambar">
                             </div>
                         </div>
                         <div class="form-group row justify-content-end m-3">

@@ -40,9 +40,14 @@
                             <small class="text-danger"><?php echo form_error('kategori'); ?></small>
                         </div>
                         <div class="form-group">
-                            <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Yang Dibutuhkan</label>
+                            <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Dibutuhkan</label>
                             <input type="text" class="form-control form-control-user" onkeyup="formatInputRupiah(this)" id="dana_dibutuhkan" name="dana_dibutuhkan" placeholder="Masukkan Dana Yang Dibutuhkan">
                             <small class="text-danger"><?php echo form_error('dana_dibutuhkan'); ?></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="dana_terkumpul" class="col-sm-2 col-form-label">Dana Terkumpul</label>
+                            <input type="text" class="form-control form-control-user" onkeyup="formatInputRupiah(this)" id="dana_terkumpul" name="dana_terkumpul" placeholder="Masukkan Dana Yang Tekumpul">
+                            <small class="text-danger"><?php echo form_error('dana_terkumpul'); ?></small>
                         </div>
                         <div class="form-group">
                             <label for="detail" class="col-sm-2 col-form-label">Detail</label>
@@ -52,6 +57,11 @@
                         <div class="form-group">
                             <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
                             <input type="file" class="form-control form-control-user" id="gambar" name="gambar">
+                        </div>
+                        <div class="form-group">
+                            <label for="status_donasi" class="col-sm-2 col-form-label">Status Donasi</label>
+                            <input type="text" class="form-control form-control-user" id="status_donasi" name="status_donasi" value="Belum dicairkan" readonly>
+                            <small class="text-danger"><?php echo form_error('status_donasi'); ?></small>
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>

@@ -10,12 +10,12 @@
             <div class="card-body">
 
                 <?php
-                $queryBerdonasi = "SELECT * FROM user_berdonasi 
-                                        INNER JOIN donasi ON user_berdonasi.id_donasi = donasi.id
-                                        INNER JOIN pembayaran ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
-                                        INNER JOIN user ON user_berdonasi.id_user = user.id_user
-                                        WHERE status_berdonasi = 'Menunggu Konfirmasi'
-                                        ORDER BY id_berdonasi";
+                $queryBerdonasi = "SELECT * FROM transaksi 
+                                        INNER JOIN donasi ON transaksi.id_donasi = donasi.id_donasi
+                                        INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran
+                                        INNER JOIN donatur ON transaksi.id_donatur = donatur.id_donatur
+                                        WHERE status_transaksi = 'Menunggu Konfirmasi' AND bukti != ''
+                                        ORDER BY id_transaksi";
                 $berdonasi = $this->db->query($queryBerdonasi)->result_array();
 
                 $countData = $this->db->query($queryBerdonasi)->num_rows();
@@ -53,7 +53,7 @@
                                             <td><span><?php echo $b['email']; ?></span></td>
                                             <td><span><?php echo $b['nama']; ?></span></td>
                                             <td><span><?php echo $b['judul']; ?></span></td>
-                                            <td><span><?php echo $b['nama_pembayaran']; ?></span></td>
+                                            <td><span><?php echo $b['nama_bank']; ?></span></td>
                                             <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                             <td>
                                                 <center><img style="width: 200px" src="<?php echo base_url('assets/img/bukti-transfer/' . $b['bukti']); ?>" alt=""><br><br>
@@ -62,7 +62,7 @@
                                             </td>
                                             <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
                                             <td>
-                                                <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_berdonasi']; ?>" class="btn btn-primary"><i class="fas fa-check"></i></a>
+                                                <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_transaksi']; ?>" class="btn btn-primary">Dikonfirmasi</a>
                                             </td>
                                         </tr>
                                         <?php $i++; ?>

@@ -31,7 +31,7 @@
                 <tr>
                     <td>Bank</td>
                     <td>:</td>
-                    <td><?= $b['nama_pembayaran'] ?></td>
+                    <td><?= $b['nama_bank'] ?></td>
                 </tr>
 
             </tbody>

@@ -5,7 +5,7 @@
 
     <?php
     foreach ($donasi as $d) {
-        $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE donasi.id = '$d[id]'";
+        $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE donasi.id_donasi = '$d[id_donasi]'";
         $donasi = $this->db->query($queryDonasi)->result_array();
     }
     ?>
@@ -31,9 +31,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Input Pencairan Dana</h4>
-                        <form action="<?= base_url('admin/inputPencairan/' . $data->id) ?>" method="post" enctype="multipart/form-data">
+                        <form action="<?= base_url('admin/inputPencairan/' . $data->id_donasi) ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id_laporan" value="<?= $ID ?>">
-                            <input type="hidden" name="id_donasi" value="<?= $d['id'] ?>">
+                            <input type="hidden" name="id_donasi" value="<?= $d['id_donasi'] ?>">
                             <input type="hidden" name="dana_cair" value="<?= $d['dana_terkumpul'] ?>">
                             <div class="form-group">
                                 <label for="nama_donasi" class="col-sm-2 col-form-label">Nama Donasi</label>
@@ -44,7 +44,7 @@
                                 <input type="text" class="form-control form-control-user" id="kategori_donasi" name="kategori_donasi" value="<?= $d['kategori'] ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="dana_cair" class="col-sm-2 col-form-label">Dana Yang Dicairkan</label>
+                                <label for="dana_cair" class="col-sm-2 col-form-label">Dana Dicairkan</label>
                                 <input type="text" class="form-control form-control-user" value="<?= "Rp. " . number_format($d['dana_terkumpul'], 2, ',', '.'); ?>" readonly>
                             </div>
                             <div class="form-group">
@@ -69,7 +69,7 @@
                                 <small class="text-danger"><?php echo form_error('nama_penerima'); ?></small>
                             </div>
                             <div class="form-group">
-                                <label for="detail_pencairan" class="col-sm-2 col-form-label">Detail Donasi</label>
+                                <label for="detail_pencairan" class="col-sm-2 col-form-label">Detail Pencairan</label>
                                 <textarea name="detail_pencairan" id="detail_pencairan" cols="30" rows="10" class="form-control form-control-user"></textarea>
                                 <small class="text-danger"><?php echo form_error('detail_pencairan'); ?></small>
                             </div>

@@ -24,6 +24,9 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group row m-3"> <label for="password" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10"> <a href="<?= base_url('user/ubah_password/') . $user['id_donatur']; ?>">Ubah password</a> </div>
+            </div>
             <div class="form-group row justify-content-end m-3">
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Ubah</button>

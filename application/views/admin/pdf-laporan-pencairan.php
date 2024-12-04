@@ -1,68 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title></title>
-</head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Pencairan Donasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-<body>
-    <style type="text/css">
-        .table-data {
+        table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .table-data tr th,
-        .table-data tr td {
+        table,
+        th,
+        td {
             border: 1px solid black;
-            font-size: 11pt;
-            padding: 10px 10px 10px 10px;
         }
 
-        h3 {
-            font-family: Verdana;
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        h2 {
+            text-align: center;
         }
     </style>
+</head>
 
-    <h3>
-        <center>Laporan Data Pencairan Donasi</center>
-    </h3>
-    <br />
-    <table class="table-data">
+<body>
+
+    <h2>Laporan Pencairan Donasi</h2>
+    <p>Bulan: <?= isset($_GET['month']) ? date("F Y", strtotime("2024-" . $_GET['month'] . "-01")) : "Semua Pencairan"; ?></p>
+
+    <table>
         <thead>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Judul</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Dana Yang Dicairkan</th>
-                <th scope="col">Rekening</th>
-                <th scope="col">No Rekening</th>
-                <th scope="col">Nama Penerima</th>
-                <th scope="col">Detail Pencairan</th>
-                <th scope="col">Tanggal Pencairan</th>
+                <th>No</th>
+                <th>Judul</th>
+                <th>Kategori</th>
+                <th>Dana Yang Dicairkan</th>
+                <th>Tanggal Pencairan</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-            $no = 1;
-            foreach ($laporan_pencairan as $p) {
-            ?>
+            <?php if (empty($laporan_pencairan)) { ?>
                 <tr>
-                    <td scope="row"><?php echo $no++ . '.'; ?></td>
-                    <td><span><?php echo $p['nama_donasi']; ?></span></td>
-                    <td><span><?php echo $p['kategori_donasi']; ?></span></td>
-                    <td><?php echo "Rp. " . number_format($p['dana_cair'], 2, ',', '.'); ?></td>
-                    <td><?php echo $p['nama_rekening']; ?></td>
-                    <td><?php echo $p['nomor_rekening']; ?></td>
-                    <td><?php echo $p['nama_penerima']; ?></td>
-                    <td><?php echo $p['detail_pencairan']; ?></td>
-                    <td><?php echo date('d F Y', $p['tanggal_pencairan']); ?></td>
+                    <td colspan="5">Tidak ada data untuk bulan dan tahun ini.</td>
                 </tr>
-            <?php
-            }
-            ?>
+            <?php } else { ?>
+                <?php $i = 1; ?>
+                <?php foreach ($laporan_pencairan as $pencairan) { ?>
+                    <tr>
+                        <td><?= $i++; ?></td>
+                        <td><?= $pencairan['nama_donasi']; ?></td>
+                        <td><?= $pencairan['kategori_donasi']; ?></td>
+                        <td><?= "Rp. " . number_format($pencairan['dana_cair'], 2, ',', '.'); ?></td>
+                        <td><?= date('d F Y', $pencairan['tanggal_pencairan']); ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
         </tbody>
     </table>
+
 </body>
 
 </html>

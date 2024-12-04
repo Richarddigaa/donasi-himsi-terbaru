@@ -27,13 +27,13 @@
                         <a class="btn btn-outline-dark mt-auto">Donasi telah dicairkan</a>
                         <!-- jika dana belum mencapai targer maka user bida berdonasi -->
                     <?php } else { ?>
-                        <a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/berdonasi/') . $d['id']; ?>">Donasi Sekarang</a>
+                        <a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/berdonasi/') . $d['id_donasi']; ?>">Donasi Sekarang</a>
                     <?php } ?>
                     <!-- jika dana sudah dicairkan maka -->
                     <?php if ($d['status_donasi'] == 'Sudah dicairkan') { ?>
                         <hr>
                         <h4 class="mb-3">Informasi penggalangan dana</h4>
-                        <a class="btn btn-outline-primary mt-auto" href="<?= base_url('user/lapor_donasi/') . $d['id']; ?>"><i class="fas fa-file-invoice-dollar"></i> Rincian penggunaan dana</a>
+                        <a class="btn btn-outline-primary mt-auto" href="<?= base_url('user/lapor_donasi/') . $d['id_donasi']; ?>"><i class="fas fa-file-invoice-dollar"></i> Rincian penggunaan dana</a>
                     <?php } ?>
                 </div>
         </div>

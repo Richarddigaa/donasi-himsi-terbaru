@@ -40,9 +40,9 @@ class Auth extends CI_Controller
         if ($user) {
             //cek password
             if (password_verify($password, $user['password'])) {
-                $data = ['email' => $user['email'], 'role_id' => $user['role_id']];
+                $data = ['email' => $user['email'], 'id_role' => $user['id_role'], 'password' => $user['password']];
                 $this->session->set_userdata($data);
-                if ($user['role_id'] == 1) {
+                if ($user['id_role'] == '001') {
                     redirect('admin');
                 } else {
                     if ($user['image'] == 'logo-donasi.png') {
@@ -75,7 +75,7 @@ class Auth extends CI_Controller
     public function register()
     {
 
-        $queryIDUser = "SELECT max(id_user) as maxID FROM user";
+        $queryIDUser = "SELECT max(id_donatur) as maxID FROM donatur";
         $data['idU'] = $this->db->query($queryIDUser)->result_array();
 
 
@@ -83,37 +83,31 @@ class Auth extends CI_Controller
             'required' => 'Nama Belum diisi!!'
         ]);
 
-        $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email|is_unique[user.email]', [
+        $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email|is_unique[donatur.email]', [
             'valid_email' => 'Email Tidak Benar!!',
             'required' => 'Email Belum diisi!!',
             'is_unique' => 'Email Sudah Terdaftar!'
         ]);
 
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'Password Tidak Sama!!',
-            'required' => 'Password Belum diisi!!',
-            'min_length' => 'Password Terlalu Pendek'
-        ]);
-
-        $this->form_validation->set_rules('password2', 'Repeat Password', 'required|trim|matches[password1]', [
-            'matches' => 'Password Tidak Sama!!',
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]', [ 
             'required' => 'Password Belum diisi!!',
             'min_length' => 'Password Terlalu Pendek'
         ]);
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register | Donasi Himsi';
+            $data['role'] = $this->ModelUser->roleWhere(['id_role' => '002'])->result_array();
             $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/register');
+            $this->load->view('auth/register', $data);
             $this->load->view('templates/auth_footer');
         } else {
             $data = [
-                'id_user' => $this->input->post('id_user', true),
+                'id_donatur' => $this->input->post('id_user', true),
                 'nama' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'gambar' => 'logo-donasi.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => '002',
+                'id_role' => '002',
                 'tanggal_input' => time()
             ];
 
@@ -132,7 +126,7 @@ class Auth extends CI_Controller
     public function logout()
     {
         $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
+        $this->session->unset_userdata('id_role');
 
         $this->session->set_flashdata(
             'pesan',

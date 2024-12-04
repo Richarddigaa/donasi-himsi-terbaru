@@ -16,7 +16,7 @@ else if (isset($_GET['kategori'])) {
 }
 // get produk default
 else {
-    $queryDonasi = "SELECT * FROM donasi ORDER BY id DESC";
+    $queryDonasi = "SELECT * FROM donasi ORDER BY id_donasi DESC";
     $donasi = $this->db->query($queryDonasi)->result_array();
 }
 
@@ -61,7 +61,7 @@ $countData = $this->db->query($queryDonasi)->num_rows();
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $d['dana_terkumpul'] / $d['dana_dibutuhkan'] * 100; ?>%"></div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/detailDonasi/') . $d['id']; ?>">Bantu Mereka</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('user/detailDonasi/') . $d['id_donasi']; ?>">Bantu Mereka</a></div>
                             </div>
                         </div>
                     </div>

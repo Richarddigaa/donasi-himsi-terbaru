@@ -4,7 +4,7 @@
         <div class="media text-muted pt-3">
             <?php foreach ($lapor as $l) { ?>
                 <?php
-                $no_rekening = $l['nomor_rekening'];
+                $no_rekening = $l['no_rekening_tujuan'];
                 $jumlah_sensor = 4;
                 $setelah_angka_ke = 4;
 
@@ -20,7 +20,7 @@
                 <p class="media-body pb-3 mb-0 fs-6 lh-125 border-bottom border-gray text-white">
                     <?= date('d F Y', $l['tanggal_pencairan']); ?>
                     <strong class="d-block text-white"><?= "Pencairan Dana Rp." . number_format($l['dana_cair']); ?></strong>
-                    <?= "Ke rekening " . $l['nama_rekening'] . "&nbsp;" . $no_rekening_new . " a/n " . $l['nama_penerima']  ?><br>
+                    <?= "Ke rekening " . $l['bank_tujuan'] . "&nbsp;" . $no_rekening_new . " a/n " . $l['nama_penerima_tujuan']  ?><br>
                     <br>
                     <?= $l['detail_pencairan'] ?>
                 </p>

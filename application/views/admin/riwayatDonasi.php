@@ -1,24 +1,30 @@
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-
-    <?php echo $this->session->flashdata('pesan'); ?>
 
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <?php echo $this->session->flashdata('pesan'); ?>
 
                 <?php
-                $queryBerdonasi = "SELECT * FROM user_berdonasi 
-                                        INNER JOIN donasi ON user_berdonasi.id_donasi = donasi.id
-                                        INNER JOIN pembayaran ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
-                                        INNER JOIN user ON user_berdonasi.id_user = user.id_user
-                                        WHERE status_berdonasi = 'Sudah dikonfirmasi'
-                                        ORDER BY id_berdonasi DESC";
-                $berdonasi = $this->db->query($queryBerdonasi)->result_array();
+                // Pagination setup
+                $limit = 5; // Number of records per page
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $offset = ($page - 1) * $limit;
 
-                $countData = $this->db->query($queryBerdonasi)->num_rows();
+                $queryBerdonasi = "SELECT * FROM transaksi 
+                                    INNER JOIN donasi ON transaksi.id_donasi = donasi.id_donasi
+                                    INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran
+                                    INNER JOIN donatur ON transaksi.id_donatur = donatur.id_donatur
+                                    WHERE status_transaksi = 'Sudah dikonfirmasi'
+                                    ORDER BY id_transaksi DESC
+                                    LIMIT $limit OFFSET $offset";
+
+                $berdonasi = $this->db->query($queryBerdonasi)->result_array();
+                $countData = $this->db->query("SELECT COUNT(*) as total FROM transaksi 
+                                                WHERE status_transaksi = 'Sudah dikonfirmasi'")->row()->total;
+                $totalPages = ceil($countData / $limit);
                 ?>
 
                 <div class="widget">
@@ -44,7 +50,7 @@
                                         </td>
                                     </tr>
                                     <?php } else {
-                                    $i = 1;
+                                    $i = $offset + 1; // Start counting from the correct record
                                     foreach ($berdonasi as $b) :
                                     ?>
                                         <tr>
@@ -52,7 +58,7 @@
                                             <td><span><?php echo $b['email']; ?></span></td>
                                             <td><span><?php echo $b['nama']; ?></span></td>
                                             <td><span><?php echo $b['judul']; ?></span></td>
-                                            <td><span><?php echo $b['nama_pembayaran']; ?></span></td>
+                                            <td><span><?php echo $b['nama_bank']; ?></span></td>
                                             <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                             <td>
                                                 <center><img style="width: 200px" src="<?php echo base_url('assets/img/bukti-transfer/' . $b['bukti']); ?>" alt=""><br><br>
@@ -68,12 +74,31 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page > 1) { ?>
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $page - 1; ?>">Previous</a></li>
+                        <?php } ?>
+
+                        <!-- Display page numbers -->
+                        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                            <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if ($page < $totalPages) { ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $page + 1; ?>">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $totalPages; ?>">Last</a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->

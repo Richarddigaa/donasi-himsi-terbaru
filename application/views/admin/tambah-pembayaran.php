@@ -24,14 +24,19 @@
                     <form action="<?= base_url('admin/tambah_pembayaran/') ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id_pembayaran" value="<?= $ID ?>">
                         <div class="form-group">
-                            <label for="pembayaran" class="col-sm-2 col-form-label">Nama Rekening</label>
-                            <input type="text" class="form-control form-control-user" id="pembayaran" name="pembayaran" placeholder="Masukkan Nama Rekening">
-                            <small class="text-danger"><?php echo form_error('pembayaran'); ?></small>
+                            <label for="nama_bank" class="col-sm-2 col-form-label">Nama Bank</label>
+                            <input type="text" class="form-control form-control-user" id="nama_bank" name="nama_bank" placeholder="Masukkan Nama Bank">
+                            <small class="text-danger"><?php echo form_error('nama_bank'); ?></small>
                         </div>
                         <div class="form-group">
                             <label for="rekening" class="col-sm-2 col-form-label">No Rekening</label>
                             <input type="number" class="form-control form-control-user" id="rekening" name="rekening" placeholder="Masukkan Rekening">
                             <small class="text-danger"><?php echo form_error('rekening'); ?></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pemilik_rekening" class="col-sm-2 col-form-label">Pemilik Rekening</label>
+                            <input type="text" class="form-control form-control-user" id="pemilik_rekening" name="pemilik_rekening" placeholder="Masukkan Nama Pemilik Rekening">
+                            <small class="text-danger"><?php echo form_error('pemilik_rekening'); ?></small>
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>

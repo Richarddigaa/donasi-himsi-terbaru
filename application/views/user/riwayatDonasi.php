@@ -3,10 +3,10 @@
         <div class="card-body">
 
             <?php
-            $queryBerdonasi = "SELECT * FROM user_berdonasi 
-                                INNER JOIN donasi ON user_berdonasi.id_donasi = donasi.id
-                                INNER JOIN pembayaran ON user_berdonasi.id_pembayaran = pembayaran.id_pembayaran
-                                WHERE user_berdonasi.id_user = '$user[id_user]'";
+            $queryBerdonasi = "SELECT * FROM transaksi 
+                                INNER JOIN donasi ON transaksi.id_donasi = donasi.id_donasi
+                                INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran
+                                WHERE transaksi.id_donatur = '$user[id_donatur]' AND bukti != '' ";
             $berdonasi = $this->db->query($queryBerdonasi)->result_array();
 
             $countData = $this->db->query($queryBerdonasi)->num_rows();
@@ -29,7 +29,7 @@
                         <tbody>
                             <?php if ($countData < 1) { ?>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="7">
                                         <h4 class="text-center my-5">Tidak ada riwayat donasi</h4>
                                     </td>
                                 </tr>
@@ -40,15 +40,15 @@
                                     <tr>
                                         <td scope="row"><?php echo $i . '.'; ?></td>
                                         <td><span><?php echo $b['judul']; ?></span></td>
-                                        <td><span><?php echo $b['nama_pembayaran']; ?></span></td>
+                                        <td><span><?php echo $b['nama_bank']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
                                         <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
-                                        <?php if ($b['status_berdonasi'] == 'Menunggu Konfirmasi') { ?>
+                                        <?php if ($b['status_transaksi'] == 'Menunggu Konfirmasi') { ?>
                                             <td>
                                                 <h6 class="btn btn-outline-secondary">Pending</h6>
                                             </td>
                                         <?php } else { ?>
-                                            <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_berdonasi']; ?>"><i class="fas fa-fw fa-file"></i> Lihat</a></td>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_transaksi']; ?>"><i class="fas fa-fw fa-file"></i> Lihat</a></td>
                                         <?php } ?>
                                         <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
                                             <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>"><i class="fas fa-fw fa-eye"></i> Cek Disini</a></td>

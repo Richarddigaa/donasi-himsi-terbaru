@@ -16,8 +16,21 @@
                 </a>
 
                 <?php
-                $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori ORDER BY id desc";
+                // Pagination setup
+                $limit = 5; // Number of records per page
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $offset = ($page - 1) * $limit;
+
+                // Get the records for the current page
+                $queryDonasi = "SELECT * FROM donasi 
+                                JOIN kategori ON donasi.id_kategori = kategori.id_kategori 
+                                ORDER BY id_donasi desc 
+                                LIMIT $limit OFFSET $offset";
                 $donasi = $this->db->query($queryDonasi)->result_array();
+
+                // Count the total number of records to calculate the number of pages
+                $totalRecords = $this->db->query("SELECT COUNT(*) as total FROM donasi")->row()->total;
+                $totalPages = ceil($totalRecords / $limit);
                 ?>
 
                 <div class="widget">
@@ -37,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; ?>
+                                <?php $i = $offset + 1; ?>
                                 <?php foreach ($donasi as $d) : ?>
                                     <tr>
                                         <td scope="row"><?php echo $i . '.'; ?></td>
@@ -48,13 +61,14 @@
                                         <td><?php echo $d['detail']; ?></td>
                                         <td>
                                             <picture>
-                                                <source srcset="" type="image/svg+xml"> <img src="<?= base_url('assets/img/upload/') . $d['gambar']; ?>" class="img-fluid img-thumbnail" alt="...">
+                                                <source srcset="" type="image/svg+xml">
+                                                <img src="<?= base_url('assets/img/upload/') . $d['gambar']; ?>" class="img-fluid img-thumbnail" alt="...">
                                             </picture>
                                         </td>
                                         <td><?php echo $d['status_donasi']; ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('admin/ubahDonasi/') . $d['id']; ?>" class="btn btn-primary mr-2 mb-2"><i class="far fa-fw fa-edit mr-2"></i>Edit</a>
-                                            <a href="<?php echo base_url('admin/hapusDonasi/') . $d['id']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $d['judul']; ?> ?');" class="btn btn-danger"><i class="fas fa-fw fa-trash mr-2"></i>Hapus</a>
+                                            <a href="<?php echo base_url('admin/ubahDonasi/') . $d['id_donasi']; ?>" class="btn btn-primary mr-2 mb-2"><i class="far fa-fw fa-edit mr-2"></i>Edit</a>
+                                            <a href="<?php echo base_url('admin/hapusDonasi/') . $d['id_donasi']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $d['judul']; ?> ?');" class="btn btn-danger"><i class="fas fa-fw fa-trash mr-2"></i>Hapus</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
@@ -63,12 +77,34 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <ul class="pagination justify-content-center">
+                        <!-- First Page Link -->
+                        <?php if ($page > 1) { ?>
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $page - 1; ?>">Previous</a></li>
+                        <?php } ?>
+
+                        <!-- Page Numbers -->
+                        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                            <li class="page-item <?= ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                            </li>
+                        <?php } ?>
+
+                        <!-- Next Page Link -->
+                        <?php if ($page < $totalPages) { ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $page + 1; ?>">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $totalPages; ?>">Last</a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
 
 </div>
 <!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->

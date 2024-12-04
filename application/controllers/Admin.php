@@ -12,8 +12,8 @@ class Admin extends CI_Controller
         $data['totalDonasi'] = $this->db->get('donasi')->num_rows();
         $data['totalKategori'] = $this->db->get('kategori')->num_rows();
         $data['totalPembayaran'] = $this->db->get('pembayaran')->num_rows();
-        $data['totalRiwayat'] = $this->db->get('user_berdonasi')->num_rows();
-        $data['totalLaporan'] = $this->db->get('laporan_pencairan')->num_rows();
+        $data['totalRiwayat'] = $this->db->get('transaksi')->num_rows();
+        $data['totalLaporan'] = $this->db->get('pencairan')->num_rows();
 
         $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE status_donasi = 'Belum dicairkan' and dana_terkumpul > 100000";
         $data['totalPencairan'] = $this->db->query($queryDonasi)->num_rows();
@@ -141,7 +141,7 @@ class Admin extends CI_Controller
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
-        $queryIDDonasi = "SELECT max(id) as maxID FROM donasi";
+        $queryIDDonasi = "SELECT max(id_donasi) as maxID FROM donasi";
         $data['idD'] = $this->db->query($queryIDDonasi)->result_array();
 
         $this->form_validation->set_rules('donasi', 'Judul Donasi', 'required|min_length[3]', [
@@ -153,6 +153,9 @@ class Admin extends CI_Controller
         ]);
         $this->form_validation->set_rules('dana_dibutuhkan', 'Dana Yang Dibutuhkan', 'required', [
             'required' => 'Dana Yang Dibutuhkan harus diisi'
+        ]);
+        $this->form_validation->set_rules('dana_terkumpul', 'Dana Yang Terkumpul', 'required', [
+            'required' => 'Dana Yang Terkumpul harus diisi'
         ]);
         $this->form_validation->set_rules('detail', 'Detail', 'required|min_length[3]', [
             'required' => 'Detail harus diisi',
@@ -190,15 +193,17 @@ class Admin extends CI_Controller
                     return $string;
                 }
                 $dana = $this->input->post('dana_dibutuhkan', true);
+                $dana2 = $this->input->post('dana_terkumpul', true);
                 $dana_rupiah = bersihkanRupiah($dana);
+                $dana_terkumpul = bersihkanRupiah($dana2);
 
                 $data = [
-                    'id' => $this->input->post('id_donasi', true),
+                    'id_donasi' => $this->input->post('id_donasi', true),
                     'judul' => $this->input->post('donasi', true),
                     'id_kategori' => $this->input->post('kategori', true),
                     'dana_dibutuhkan' => $dana_rupiah,
                     'detail' => $this->input->post('detail', true),
-                    'dana_terkumpul' => 0,
+                    'dana_terkumpul' => $dana_terkumpul,
                     'gambar' => $img
                 ];
                 $this->ModelAdmin->simpanDonasi($data);
@@ -228,7 +233,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Ubah Donasi | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
+        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id_donasi' => $this->uri->segment(3)])->result_array();
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
@@ -277,7 +282,7 @@ class Admin extends CI_Controller
                 'dana_terkumpul' => $this->input->post('dana_terkumpul', true),
                 'gambar' => $img
             ];
-            $this->ModelAdmin->updateDonasi($data, ['id' => $this->input->post('id')]);
+            $this->ModelAdmin->updateDonasi($data, ['id_donasi' => $this->input->post('id')]);
             $this->session->set_flashdata(
                 'pesan',
                 '<div class="alert alert-success alert-message" role="alert">Donasi berhasil diubah</div>
@@ -310,8 +315,8 @@ class Admin extends CI_Controller
         $data['idP'] = $this->db->query($queryIDPembayaran)->result_array();
 
         $this->form_validation->set_rules(
-            'pembayaran',
-            'Pembayaran',
+            'nama_bank',
+            'Nama Bank',
             'required|min_length[3]',
             ['required' => 'Nama Pembayaran harus diisi', 'min_length' => 'Nama Pembayaran terlalu pendek']
         );
@@ -323,6 +328,13 @@ class Admin extends CI_Controller
             ['required' => 'No Rekening harus diisi', 'min_length' => 'Minimal 10 angka', 'max_length' => 'Maksimal 12 angka']
         );
 
+        $this->form_validation->set_rules(
+            'pemilik_rekening',
+            'Pemilik Rekening',
+            'required',
+            ['required' => 'Nama Pemilik Rekening harus diisi']
+        );
+
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -332,8 +344,9 @@ class Admin extends CI_Controller
         } else {
             $this->db->insert('pembayaran', [
                 'id_pembayaran' => $this->input->post('id_pembayaran'),
-                'nama_pembayaran' => $this->input->post('pembayaran'),
-                'rekening' => $this->input->post('rekening')
+                'nama_bank' => $this->input->post('nama_bank'),
+                'rekening' => $this->input->post('rekening'),
+                'pemilik_rekening' => $this->input->post('pemilik_rekening'),
             ]);
             $this->session->set_flashdata(
                 'pesan',
@@ -352,10 +365,10 @@ class Admin extends CI_Controller
         $data['data'] = $this->ModelAdmin->getrow(array('id_pembayaran' => $id), 'pembayaran');
 
         $this->form_validation->set_rules(
-            'pembayaran',
-            'Pembayaran',
+            'nama_bank',
+            'Nama Bank',
             'required|min_length[3]',
-            ['required' => 'Nama Pembayaran harus diisi', 'min_length' => 'Nama Pembayaran terlalu pendek']
+            ['required' => 'Nama Bank Harus Diisi', 'min_length' => 'Nama Bank terlalu pendek']
         );
 
         $this->form_validation->set_rules(
@@ -363,6 +376,12 @@ class Admin extends CI_Controller
             'Rekening',
             'required|min_length[3]',
             ['required' => 'No Rekening harus diisi', 'min_length' => 'No Rekening terlalu pendek']
+        );
+        $this->form_validation->set_rules(
+            'pemilik_rekening',
+            'Pemilik Rekening',
+            'required',
+            ['required' => 'Nama Pemilik Rekening harus diisi']
         );
 
         if ($this->form_validation->run() == false) {
@@ -373,8 +392,9 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $simpan = [
-                'nama_pembayaran' => $this->input->post('pembayaran'),
-                'rekening' => $this->input->post('rekening')
+                'nama_bank' => $this->input->post('nama_bank'),
+                'rekening' => $this->input->post('rekening'),
+                'pemilik_rekening' => $this->input->post('pemilik_rekening'),
             ];
             $this->db->where('id_pembayaran', $id);
             $this->db->update('pembayaran', $simpan);
@@ -401,10 +421,10 @@ class Admin extends CI_Controller
     public function konfirmasi($id)
     {
         $simpan = [
-            'status_berdonasi' => "Sudah dikonfirmasi"
+            'status_transaksi' => "Sudah dikonfirmasi"
         ];
-        $this->db->where('id_berdonasi', $id);
-        $this->db->update('user_berdonasi', $simpan);
+        $this->db->where('id_transaksi', $id);
+        $this->db->update('transaksi', $simpan);
         $this->session->set_flashdata(
             'pesan',
             '<div class="alert alert-success alert-message" role="alert">Konfirmasi berhasil</div>
@@ -418,7 +438,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Konfirmasi Donasi | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['konfirmasi'] = $this->db->get('user_berdonasi')->result_array();
+        $data['konfirmasi'] = $this->db->get('transaksi')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -432,7 +452,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Riwayat Donasi | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['riwayatDonasi'] = $this->db->get('user_berdonasi')->result_array();
+        $data['riwayatDonasi'] = $this->db->get('transaksi')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -473,6 +493,7 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $nama = $this->input->post('nama', true);
+            $password =  password_hash($this->input->post('password', true), PASSWORD_DEFAULT);
             $email = $this->input->post('email', true);
             //jika ada gambar yang akan diupload 
             $config['upload_path'] = './assets/img/profile/';
@@ -491,9 +512,9 @@ class Admin extends CI_Controller
                 echo "gagal";
             }
 
-            $this->db->set('nama', $nama);
+            $this->db->set('nama', $nama); 
             $this->db->where('email', $email);
-            $this->db->update('user');
+            $this->db->update('donatur');
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profil Berhasil diubah </div>
                                             <meta http-equiv="refresh" content="2">');
             redirect('admin/profile');
@@ -521,13 +542,13 @@ class Admin extends CI_Controller
         $data['title'] = 'Pencairan Dana | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id' => $this->uri->segment(3)])->result_array();
+        $data['donasi'] = $this->ModelAdmin->donasiWhere(['id_donasi' => $this->uri->segment(3)])->result_array();
 
-        $data['data'] = $this->ModelAdmin->getrow(array('id' => $id), 'donasi');
+        $data['data'] = $this->ModelAdmin->getrow(array('id_donasi' => $id), 'donasi');
 
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
-        $queryIDPencairan = "SELECT max(id_laporan) as maxID FROM laporan_pencairan";
+        $queryIDPencairan = "SELECT max(id_pencairan) as maxID FROM pencairan";
         $data['idPe'] = $this->db->query($queryIDPencairan)->result_array();
 
         $this->form_validation->set_rules(
@@ -568,18 +589,18 @@ class Admin extends CI_Controller
             $simpan = [
                 'status_donasi' => 'Sudah dicairkan'
             ];
-            $this->db->where('id', $id);
+            $this->db->where('id_donasi', $id);
             $this->db->update('donasi', $simpan);
 
-            $this->db->insert('laporan_pencairan', [
-                'id_laporan' => $this->input->post('id_laporan', true),
+            $this->db->insert('pencairan', [
+                'id_pencairan' => $this->input->post('id_laporan', true),
                 'id_donasi' => $this->input->post('id_donasi', true),
                 'nama_donasi' => $this->input->post('nama_donasi', true),
                 'kategori_donasi' => $this->input->post('kategori_donasi', true),
                 'dana_cair' => $this->input->post('dana_cair', true),
-                'nama_rekening' => $this->input->post('nama_rekening', true),
-                'nomor_rekening' => $this->input->post('nomor_rekening', true),
-                'nama_penerima' => $this->input->post('nama_penerima', true),
+                'bank_tujuan' => $this->input->post('nama_rekening', true),
+                'no_rekening_tujuan' => $this->input->post('nomor_rekening', true),
+                'nama_penerima_tujuan' => $this->input->post('nama_penerima', true),
                 'detail_pencairan' => $this->input->post('detail_pencairan', true),
                 'tanggal_pencairan' => time()
             ]);
@@ -609,7 +630,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Upload Bukti | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['upload'] = $this->ModelAdmin->uploadWhere(['id_laporan' => $this->uri->segment(3)])->result_array();
+        $data['upload'] = $this->ModelAdmin->uploadWhere(['id_pencairan' => $this->uri->segment(3)])->result_array();
         $this->form_validation->set_rules(
             'bukti',
             'Bukti Laporan',
@@ -649,7 +670,7 @@ class Admin extends CI_Controller
             $data = [
                 'bukti_pencairan' => $img
             ];
-            $this->ModelAdmin->uploadBukti($data, ['id_laporan' => $this->input->post('id_laporan')]);
+            $this->ModelAdmin->uploadBukti($data, ['id_pencairan' => $this->input->post('id_laporan')]);
             redirect('admin/upload_buktiPencairan');
         }
     }
@@ -661,7 +682,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Laporan Pencairan Dana | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
-        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+        $data['laporan_pencairan'] = $this->db->get('pencairan')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -672,28 +693,130 @@ class Admin extends CI_Controller
 
     public function print_laporan_pencairan()
     {
-        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+        // Get the month from the URL parameters
+        $selectedMonth = $this->input->get('month');
 
+        // Query to fetch the data based on the selected month
+        if ($selectedMonth != '') {
+            // Filter by the selected month
+            $query = "SELECT * FROM pencairan WHERE MONTH(FROM_UNIXTIME(tanggal_pencairan)) = ?";
+            $pencairan = $this->db->query($query, array($selectedMonth))->result_array();
+        } else {
+            // If no month selected, get all data
+            $query = "SELECT * FROM pencairan";
+            $pencairan = $this->db->query($query)->result_array();
+        }
+
+        // Load the view for the printable report, passing the filtered data
+        $data['pencairan'] = $pencairan;
+        $data['selectedMonth'] = $selectedMonth;
+
+        // Load the view for the printable page
         $this->load->view('admin/print-laporan-pencairan', $data);
     }
 
     public function pdf_laporan_pencairan()
     {
-        $data['laporan_pencairan'] = $this->db->get('laporan_pencairan')->result_array();
+        // Mendapatkan bulan dan tahun yang dipilih dari query string (URL)
+        $month = $this->input->get('month');
+        $year = $this->input->get('year');
 
+        // Memfilter data berdasarkan bulan dan tahun
+        $this->db->select('*');
+        $this->db->from('pencairan');
+
+        if ($month != '') {
+            $this->db->where("MONTH(FROM_UNIXTIME(tanggal_pencairan))", $month);
+        }
+
+        if ($year != '') {
+            $this->db->where("YEAR(FROM_UNIXTIME(tanggal_pencairan))", $year);
+        }
+
+        $data['laporan_pencairan'] = $this->db->get()->result_array();
+
+        // Memuat Dompdf
         $sroot = $_SERVER['DOCUMENT_ROOT'];
         include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
 
         $dompdf = new Dompdf\Dompdf();
+
+        // Memuat view untuk laporan
         $this->load->view('admin/pdf-laporan-pencairan', $data);
-        $paper_size  = 'A4'; // ukuran kertas 
-        $orientation = 'landscape'; //tipe format kertas potrait atau landscape 
+
+        $paper_size  = 'A4'; // ukuran kertas
+        $orientation = 'landscape'; //tipe format kertas potrait atau landscape
         $html = $this->output->get_output();
         $dompdf->set_paper($paper_size, $orientation);
-        //Convert to PDF 
+
+        // Mengkonversi HTML menjadi PDF
         $dompdf->load_html($html);
         $dompdf->render();
+
+        // Mengunduh atau menampilkan PDF
         $dompdf->stream("laporan_pencairan_donasi.pdf", array('Attachment' => 0));
-        // nama file pdf yang di hasilkan
+    }
+
+    public function ubah_password()
+    {
+        $data['title'] = 'Ubah Password | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/ubah_password');
+        $this->load->view('templates/footer'); // Menampilkan kembali form jika validasi gagal
+    }
+
+    public function new_password()
+    {
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $id = $data['user']['id_donatur'];
+        $data['id'] = $id;
+
+        // Validasi form
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        // Cek apakah validasi berhasil
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata(
+                'pesan',
+                '<div class="alert alert-success alert-message" role="alert">tidak ada yang diperbaharui</div>
+                                    <meta http-equiv="refresh" content="2">'
+            );
+            redirect('admin/profile');
+        } else {
+            // Ambil ID user dari URL
+            // Periksa apakah ID valid
+            if (empty($id)) {
+                echo "ID user tidak ditemukan.";
+                return;
+            }
+
+            // Ambil password dan enkripsi
+            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+
+            // Siapkan data untuk disimpan
+            $simpan = ['password' => $password];
+
+            // Update password di database
+            $this->db->where('id_donatur', $id);
+            $this->db->update('donatur', $simpan);
+
+            // Cek apakah update berhasil
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata(
+                    'pesan',
+                    '<div class="alert alert-success alert-message" role="alert">Password berhasil di perbaharui</div>
+                                    <meta http-equiv="refresh" content="2">'
+                );
+            } else {
+                $this->session->set_flashdata('pesan', 'Gagal memperbarui password');
+            }
+
+            // Redirect setelah update
+            redirect('admin/profile');
+        }
     }
 }

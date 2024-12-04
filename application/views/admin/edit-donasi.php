@@ -5,7 +5,7 @@
 
     <?php
     foreach ($donasi as $d) {
-        $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE donasi.id = '$d[id]'";
+        $queryDonasi = "SELECT * FROM donasi JOIN kategori ON donasi.id_kategori = kategori.id_kategori WHERE donasi.id_donasi = '$d[id_donasi]'";
         $donasi = $this->db->query($queryDonasi)->result_array();
     }
     ?>
@@ -18,7 +18,7 @@
                     <h4 class="card-title mb-4">Edit Donasi</h4>
 
                     <form action="<?= base_url('admin/ubahDonasi/') ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?= $d['id'] ?>">
+                        <input type="hidden" name="id" value="<?= $d['id_donasi'] ?>">
                         <input type="hidden" name="old_pict" value="<?= $d['gambar'] ?>">
                         <div class="form-group">
                             <label for="donasi" class="col-sm-2 col-form-label">Judul Donasi</label>
@@ -35,24 +35,28 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Yang Dibutuhkan</label>
+                            <label for="dana_dibutuhkan" class="col-sm-2 col-form-label">Dana Dibutuhkan</label>
                             <input type="number" class="form-control form-control-user" id="dana_dibutuhkan" name="dana_dibutuhkan" value="<?= $d['dana_dibutuhkan'] ?>">
                             <small class="text-danger"><?php echo form_error('dana_dibutuhkan'); ?></small>
                         </div>
                         <div class="form-group">
-                            <label for="dana_terkumpul" class="col-sm-2 col-form-label">Dana Yang Terkumpul</label>
+                            <label for="dana_terkumpul" class="col-sm-2 col-form-label">Dana Terkumpul</label>
                             <input type="number" class="form-control form-control-user" id="dana_terkumpul" name="dana_terkumpul" value="<?= $d['dana_terkumpul'] ?>">
                             <small class="text-danger"><?php echo form_error('dana_terkumpul'); ?></small>
                         </div>
                         <div class="form-group">
                             <label for="detail" class="col-sm-2 col-form-label">Detail Donasi</label>
                             <textarea name="detail" id="detail" cols="30" rows="10" class="form-control form-control-user">
-                            <?= $d['detail'] ?>
-                        </textarea>
+                            <?= $d['detail'] ?></textarea>
                             <small class="text-danger"><?php echo form_error('detail'); ?></small>
                         </div>
                         <div class="form-group">
                             <input type="file" class="form-control form-control-user" id="gambar" name="gambar">
+                        </div>
+                        <div class="form-group">
+                            <label for="status_donasi" class="col-sm-2 col-form-label">Status Donasi</label>
+                            <input type="text" class="form-control form-control-user" id="status_donasi" name="status_donasi" value="Belum dicairkan" readonly>
+                            <small class="text-danger"><?php echo form_error('status_donasi'); ?></small>
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>

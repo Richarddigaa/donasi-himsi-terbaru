@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <?php
     foreach ($upload as $u) {
-        $queryUpload = "SELECT * FROM laporan_pencairan WHERE laporan_pencairan.id_laporan = '$u[id_laporan]'";
+        $queryUpload = "SELECT * FROM pencairan WHERE pencairan.id_pencairan = '$u[id_pencairan]'";
         $upload = $this->db->query($queryUpload)->result_array();
     }
     ?>
@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h4 class="card-title mb-4">Upload Bukti</h4>
                     <form action="<?= base_url('admin/uploadBukti_Donasi/') ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id_laporan" value="<?= $u['id_laporan'] ?>">
+                        <input type="hidden" name="id_laporan" value="<?= $u['id_pencairan'] ?>">
                         <input type="hidden" name="old_pict" value="<?= $u['bukti_pencairan'] ?>">
                         <div class="form-group">
                             <input type="file" class="form-control form-control-user" id="bukti" name="bukti">
