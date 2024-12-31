@@ -20,11 +20,20 @@
                 <p class="media-body pb-3 mb-0 fs-6 lh-125 border-bottom border-gray text-white">
                     <?= date('d F Y', $l['tanggal_pencairan']); ?>
                     <strong class="d-block text-white"><?= "Pencairan Dana Rp." . number_format($l['dana_cair']); ?></strong>
-                    <?= "Ke rekening " . $l['bank_tujuan'] . "&nbsp;" . $no_rekening_new . " a/n " . $l['nama_penerima_tujuan']  ?><br>
+                    <?= "Bank :" . $l['bank_tujuan']; ?>
                     <br>
-                    <?= $l['detail_pencairan'] ?>
+                    <?php echo  "Nomor Rekening :" . $no_rekening_new; ?>
+                    <br>
+                    <?php echo "Nama penerima :" . $l['nama_penerima_tujuan']; ?>
+                    <br>
+                    <br>
                 </p>
         </div>
+        <h6 class="border-bottom border-gray fs-5 fw-bold pb-2 mb-0 text-white mt-2">Detail Pencairan</h6>
+        <h5 class="text-light fs-6 mt-3 mb-5 ">
+            <?php echo $l['detail_pencairan']; ?>
+        </h5>
+        <br>
         <h6 class="border-bottom border-gray fs-5 fw-bold pb-2 mb-0 text-white mt-2">Bukti Penyaluran Dana</h6>
         <?php if ($l['bukti_pencairan'] == '') { ?>
             <h5 class="text-light text-center mt-5 mb-5 fw-bold">Bukti Belum Ada</h5>

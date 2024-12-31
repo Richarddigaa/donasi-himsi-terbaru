@@ -25,6 +25,78 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function donatur()
+    {
+        $data['title'] = 'Donatur | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/donatur', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambah_donatur()
+    {
+        $data['title'] = 'Tambah Donatur | Admin Donasi Himsi';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $queryIDUser = "SELECT max(id_donatur) as maxID FROM donatur";
+        $data['idU'] = $this->db->query($queryIDUser)->result_array();
+
+
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required', [
+            'required' => 'Nama Belum diisi!!'
+        ]);
+
+        $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email|is_unique[donatur.email]', [
+            'valid_email' => 'Email Tidak Benar!!',
+            'required' => 'Email Belum diisi!!',
+            'is_unique' => 'Email Sudah Terdaftar!'
+        ]);
+
+        $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]', [
+            'required' => 'Password Belum diisi!!',
+            'min_length' => 'Password Terlalu Pendek'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/tambah-donatur', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->db->insert('donatur', [
+                'id_donatur' => $this->input->post('id_donatur'),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'email' => $this->input->post('email', true),
+                'gambar' => 'logo-donasi.png',
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'id_role' => '002',
+                'tanggal_input' => time()
+            ]);
+            $this->session->set_flashdata(
+                'pesan',
+                '<div class="alert alert-success alert-message" role="alert">Kategori berhasil ditambahkan</div>
+                                    <meta http-equiv="refresh" content="2">'
+            );
+            redirect('admin/donatur');
+        }
+    }
+
+    public function hapus_donatur($id)
+    {
+
+        $this->ModelAdmin->hapus_donatur($id);
+        $this->session->set_flashdata(
+            'pesan',
+            '<div class="alert alert-success alert-message" role="alert">donatur berhasil dihapus</div>
+                                    <meta http-equiv="refresh" content="2">'
+        );
+        redirect('admin/donatur');
+    }
+
     public function kategori()
     {
         $data['title'] = 'Kategori | Admin Donasi Himsi';

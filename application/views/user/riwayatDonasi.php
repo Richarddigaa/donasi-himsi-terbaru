@@ -51,7 +51,7 @@
                                             <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_transaksi']; ?>"><i class="fas fa-fw fa-file"></i> Lihat</a></td>
                                         <?php } ?>
                                         <?php if ($b['status_donasi'] == 'Sudah dicairkan') { ?>
-                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id']; ?>"><i class="fas fa-fw fa-eye"></i> Cek Disini</a></td>
+                                            <td><a class="btn btn-success" href="<?= base_url('user/lapor_donasi/') . $b['id_donasi']; ?>"><i class="fas fa-fw fa-eye"></i> Cek Disini</a></td>
                                         <?php } else { ?>
                                             <td>Belum Ada</td>
                                         <?php } ?>

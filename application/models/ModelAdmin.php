@@ -3,6 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelAdmin extends CI_Model
 {
+    public function hapus_donatur($id)
+    {
+        $this->db->where('id_donatur', $id);
+        $this->db->delete('donatur');
+    }
+
+    public function donaturWhere($where)
+    {
+        return $this->db->get_where('donatur', $where);
+    }
+
 
     public function simpanDonasi($data = null)
     {

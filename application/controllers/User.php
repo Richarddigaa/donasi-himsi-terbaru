@@ -114,7 +114,7 @@ class User extends CI_Controller
                     }
                     $dana = $this->input->post('dana', true);
                     $dana_rupiah = bersihkanRupiah($dana);
-
+                session_start();
                     $data = [
                     'id_transaksi' => $this->input->post('id_berdonasi', true),
                     'id_donatur' => $this->input->post('id_user', true),
@@ -123,13 +123,14 @@ class User extends CI_Controller
                         'dana_didonasikan' => $dana_rupiah,
                     'tanggal_donasi' => time(),
                     ];
+                $_SESSION['donasi_data'] = $data;
                     $this->ModelUser->simpanBerdonasi($data);
                     $this->session->set_flashdata(
                         'pesan',
                     '<div class="alert alert-success alert-message" role="alert">Silahkan Melakakukan Pembayaran </div>
                                     <meta http-equiv="refresh" content="4">'
                     );
-                redirect('user/transaksi');
+                redirect('user/bayar');
             }
         } else {
             $this->session->set_flashdata(
@@ -251,7 +252,7 @@ class User extends CI_Controller
     {
         $data['title'] = 'transaksi | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-
+        unset($_SESSION['donasi_data']);
         $data['user_berdonasi'] = $this->db->get('transaksi')->result_array();
 
         $this->load->view('templates/user_header', $data);
@@ -264,10 +265,21 @@ class User extends CI_Controller
     {
         $data['title'] = 'Pembayaran | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-        $data['bayar'] = $this->ModelUser->transaksiWhere(['id_transaksi' => $this->uri->segment(3)])->result_array();
-        $id = $this->uri->segment(3);
-        $data['pembayaran'] = $this->db->query("SELECT * FROM transaksi
+        if (isset($_SESSION['donasi_data'])) {
+            $data['bayar'] =
+                $this->ModelUser->transaksiWhere(['id_transaksi' => $_SESSION['donasi_data']['id_transaksi']])->result_array();
+            $id =
+                $_SESSION['donasi_data']['id_transaksi'];
+            $metode =
+                $_SESSION['donasi_data']['id_pembayaran'];
+            $data['pembayaran'] = $this->db->query("SELECT * FROM transaksi
             INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran WHERE transaksi.id_transaksi = '$id'")->result_array();
+        } else {
+            $data['bayar'] = $this->ModelUser->transaksiWhere(['id_transaksi' => $this->uri->segment(3)])->result_array();
+            $id = $this->uri->segment(3);
+            $data['pembayaran'] = $this->db->query("SELECT * FROM transaksi
+            INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran WHERE transaksi.id_transaksi = '$id'")->result_array();
+        }
         $this->form_validation->set_rules(
             'gambar',
             'Gambar',
@@ -307,6 +319,7 @@ class User extends CI_Controller
                 '<div class="alert alert-success alert-message" role="alert">Kategori berhasil diupdate</div>
                                     <meta http-equiv="refresh" content="2">'
             );
+            unset($_SESSION['donasi_data']);
             redirect('user/riwayatDonasi');
         }
     }

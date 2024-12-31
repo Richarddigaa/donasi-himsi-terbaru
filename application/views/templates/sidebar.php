@@ -24,6 +24,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link pb-0" href="<?= base_url('admin/donatur'); ?>">
+            <i class="fas fa-fw fa-bars"></i>
+            <span>Donatur</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link pb-0" href="<?= base_url('admin/kategori'); ?>">
             <i class="fas fa-fw fa-bars"></i>
             <span>Kategori</span>
