@@ -56,7 +56,7 @@
                                                 <a class="btn btn-primary mr-2" target="_blank" href="<?php echo base_url('assets/img/profile/' . $d['gambar']); ?>">Lihat</a>
                                             </center>
                                         </td>
-                                        <td><span><?php echo date('d F Y', $d['tanggal_input']); ?></span></td>
+                                        <td><span><?php echo date('d F Y', strtotime($d['tanggal_input'])); ?></span></td>
                                         <td>
                                             <a href="<?php echo base_url(); ?>admin/hapus_donatur/<?php echo $d['id_donatur']; ?>" class="btn btn-danger"><i class="fas fa-fw fa-trash mr-2"></i>Hapus</a>
                                         </td>

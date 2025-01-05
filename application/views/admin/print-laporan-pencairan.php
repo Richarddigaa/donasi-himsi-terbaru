@@ -92,7 +92,7 @@
                             <td><?= $p['no_rekening_tujuan']; ?></td>
                             <td><?= $p['nama_penerima_tujuan']; ?></td>
                             <td><?= $p['detail_pencairan']; ?></td>
-                            <td><?= date('d F Y', $p['tanggal_pencairan']); ?></td>
+                            <td><?= date('d F Y', strtotime($p['tanggal_pencairan'])); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php } ?>

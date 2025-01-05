@@ -121,7 +121,8 @@ class User extends CI_Controller
                         'id_donasi' => $this->input->post('id_donasi', true),
                         'id_pembayaran' => $this->input->post('pembayaran', true),
                         'dana_didonasikan' => $dana_rupiah,
-                    'tanggal_donasi' => time(),
+                    'tanggal_donasi' => date('Y-m-d'),
+
                     ];
                 $_SESSION['donasi_data'] = $data;
                     $this->ModelUser->simpanBerdonasi($data);

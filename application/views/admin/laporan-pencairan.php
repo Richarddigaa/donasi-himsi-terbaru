@@ -60,10 +60,10 @@
                 $queryPencairan = "SELECT * FROM pencairan";
                 $whereClauses = [];
                 if ($selectedMonth != '') {
-                    $whereClauses[] = "MONTH(FROM_UNIXTIME(tanggal_pencairan)) = '$selectedMonth'";
+                    $whereClauses[] = "MONTH(tanggal_pencairan) = '$selectedMonth'";
                 }
                 if ($selectedYear != '') {
-                    $whereClauses[] = "YEAR(FROM_UNIXTIME(tanggal_pencairan)) = '$selectedYear'";
+                    $whereClauses[] = "YEAR(tanggal_pencairan) = '$selectedYear'";
                 }
 
                 if (count($whereClauses) > 0) {
@@ -128,7 +128,7 @@
                                             <td><?php echo $p['no_rekening_tujuan']; ?></td>
                                             <td><?php echo $p['nama_penerima_tujuan']; ?></td>
                                             <td><?php echo $p['detail_pencairan']; ?></td>
-                                            <td><?php echo date('d F Y', $p['tanggal_pencairan']); ?></td>
+                                            <td><?php echo date('d F Y', strtotime($p['tanggal_pencairan'])); ?></td>
                                         </tr>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

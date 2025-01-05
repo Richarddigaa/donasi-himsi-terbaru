@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggal_input" class="col-sm-2 col-form-label">Tanggal Input</label>
-                            <input type="text" class="form-control form-control-user" id="tanggal_input" name="tanggal_input" value="<?= date("Y-m-d");  ?>" readonly>
+                            <input type="text" class="form-control form-control-user" id="tanggal_input" name="tanggal_input" value="<?= date("d-m-Y");  ?>" readonly>
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>

@@ -42,7 +42,7 @@
                                         <td><span><?php echo $b['judul']; ?></span></td>
                                         <td><span><?php echo $b['nama_bank']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($b['dana_didonasikan']); ?></td>
-                                        <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
+                                        <td><span><?= date('d F Y', strtotime($b['tanggal_donasi'])); ?></span></td>
                                         <?php if ($b['status_transaksi'] == 'Menunggu Konfirmasi') { ?>
                                             <td>
                                                 <h6 class="btn btn-outline-secondary">Pending</h6>

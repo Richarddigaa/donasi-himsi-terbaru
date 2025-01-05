@@ -74,7 +74,7 @@ class Admin extends CI_Controller
                 'gambar' => 'logo-donasi.png',
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'id_role' => '002',
-                'tanggal_input' => time()
+                'tanggal_input' => date('Y-m-d')
             ]);
             $this->session->set_flashdata(
                 'pesan',
@@ -674,7 +674,7 @@ class Admin extends CI_Controller
                 'no_rekening_tujuan' => $this->input->post('nomor_rekening', true),
                 'nama_penerima_tujuan' => $this->input->post('nama_penerima', true),
                 'detail_pencairan' => $this->input->post('detail_pencairan', true),
-                'tanggal_pencairan' => time()
+                'tanggal_pencairan' => date('Y-m-d')
             ]);
             $this->session->set_flashdata(
                 'pesan',
@@ -767,12 +767,17 @@ class Admin extends CI_Controller
     {
         // Get the month from the URL parameters
         $selectedMonth = $this->input->get('month');
+        $selectedYear = $this->input->get('year');
 
-        // Query to fetch the data based on the selected month
-        if ($selectedMonth != '') {
-            // Filter by the selected month
-            $query = "SELECT * FROM pencairan WHERE MONTH(FROM_UNIXTIME(tanggal_pencairan)) = ?";
-            $pencairan = $this->db->query($query, array($selectedMonth))->result_array();
+        $query = "SELECT * FROM pencairan";
+        $params = [];
+
+        // Tambahkan filter berdasarkan bulan dan tahun jika tersedia
+        if (!empty($selectedMonth) && !empty($selectedYear)) {
+            $query .= " WHERE MONTH(tanggal_pencairan) = ? AND YEAR(tanggal_pencairan) = ?";
+            $params = [$selectedMonth, $selectedYear];
+            // Eksekusi query dengan parameter
+            $pencairan = $this->db->query($query, $params)->result_array();
         } else {
             // If no month selected, get all data
             $query = "SELECT * FROM pencairan";
@@ -782,6 +787,7 @@ class Admin extends CI_Controller
         // Load the view for the printable report, passing the filtered data
         $data['pencairan'] = $pencairan;
         $data['selectedMonth'] = $selectedMonth;
+        $data['selectedYear'] = $selectedYear;
 
         // Load the view for the printable page
         $this->load->view('admin/print-laporan-pencairan', $data);
@@ -798,11 +804,11 @@ class Admin extends CI_Controller
         $this->db->from('pencairan');
 
         if ($month != '') {
-            $this->db->where("MONTH(FROM_UNIXTIME(tanggal_pencairan))", $month);
+            $this->db->where("MONTH(tanggal_pencairan)", $month);
         }
 
         if ($year != '') {
-            $this->db->where("YEAR(FROM_UNIXTIME(tanggal_pencairan))", $year);
+            $this->db->where("YEAR(tanggal_pencairan)", $year);
         }
 
         $data['laporan_pencairan'] = $this->db->get()->result_array();

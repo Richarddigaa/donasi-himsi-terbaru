@@ -60,7 +60,7 @@
                                                     <a class="btn btn-primary mr-2" target="_blank" href="<?php echo base_url('assets/img/bukti-transfer/' . $b['bukti']); ?>">Lihat</a>
                                                 </center>
                                             </td>
-                                            <td><span><?= date('d F Y', $b['tanggal_donasi']); ?></span></td>
+                                            <td><span><?= date('d F Y', strtotime($b['tanggal_donasi'])); ?></span></td>
                                             <td>
                                                 <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_transaksi']; ?>" class="btn btn-primary">Dikonfirmasi</a>
                                             </td>

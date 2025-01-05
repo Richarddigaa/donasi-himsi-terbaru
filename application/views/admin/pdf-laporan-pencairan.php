@@ -37,7 +37,7 @@
 <body>
 
     <h2>Laporan Pencairan Donasi</h2>
-    <p>Bulan: <?= isset($_GET['month']) ? date("F Y", strtotime("2024-" . $_GET['month'] . "-01")) : "Semua Pencairan"; ?></p>
+    <p>Bulan: <?= isset($_GET['month'], $_GET['year']) ? date("F Y", strtotime($_GET['year'] . $_GET['month'] . "-01")) : "Semua Pencairan"; ?></p>
 
     <table>
         <thead>
@@ -62,7 +62,7 @@
                         <td><?= $pencairan['nama_donasi']; ?></td>
                         <td><?= $pencairan['kategori_donasi']; ?></td>
                         <td><?= "Rp. " . number_format($pencairan['dana_cair'], 2, ',', '.'); ?></td>
-                        <td><?= date('d F Y', $pencairan['tanggal_pencairan']); ?></td>
+                        <td><?= date('d F Y', strtotime($pencairan['tanggal_pencairan'])); ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $user['nama']; ?></h5>
                     <p class="card-text"><?= $user['email']; ?></p>
-                    <p class="card-text"><small class="text-muted">Jadi donatur sejak: <b><?= date('d F Y', $user['tanggal_input']); ?></b></small></p>
+                    <p class="card-text"><small class="text-muted">Jadi donatur sejak: <b><?= date('d F Y',  strtotime($user['tanggal_input'])); ?></b></small></p>
                 </div>
                 <div class="btn btn-info ms-3 my-3">
                     <a href="<?= base_url('user/ubahProfile'); ?>" class="text text-white text-decoration-none"><i class="fas fa-user-edit"></i> Ubah Profil</a>

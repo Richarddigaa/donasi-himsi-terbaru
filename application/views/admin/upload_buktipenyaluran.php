@@ -35,7 +35,7 @@
                                     <th scope="col">Judul</th>
                                     <th scope="col">Kategori</th>
                                     <th scope="col">Dana Disalurkan</th>
-                                    <th scope="col">Tanggal Disalurkan</th>
+                                    <th scope="col">Tanggal Pencairan</th>
                                     <th scope="col">Opsi</th>
                                 </tr>
                             </thead>
@@ -54,7 +54,7 @@
                                             <td><span><?php echo $u['nama_donasi']; ?></span></td>
                                             <td><span><?php echo $u['kategori_donasi']; ?></span></td>
                                             <td><span><?php echo "Rp. " . number_format($u['dana_cair']); ?></span></td>
-                                            <td><span><?php echo date('d F Y', $u['tanggal_pencairan']); ?></span></td>
+                                            <td><span><?php echo date('d F Y', strtotime($u['tanggal_pencairan'])); ?></span></td>
                                             <td>
                                                 <a href="<?php echo base_url('admin/uploadBukti_Donasi/') . $u['id_pencairan']; ?>" class="btn btn-primary mr-2 mb-2"> <i class="fas fa-camera"></i> Upload Bukti</a>
                                             </td>

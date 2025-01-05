@@ -43,7 +43,7 @@
                                         <td><span><?php echo $t['judul']; ?></span></td>
                                         <td><span><?php echo $t['nama_bank']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($t['dana_didonasikan']); ?></td>
-                                        <td><span><?= date('d F Y', $t['tanggal_donasi']); ?></span></td>
+                                        <td><span><?= date('d F Y', strtotime($t['tanggal_donasi'])); ?></span></td>
                                         <td><a class="btn btn-danger" href="<?= base_url('user/bayar/') . $t['id_transaksi']; ?>"><i class="fas fa-wallet"></i> Bayar</a></td>
                                     </tr>
                                     <?php $i++; ?>

@@ -25,7 +25,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link pb-0" href="<?= base_url('admin/donatur'); ?>">
-            <i class="fas fa-fw fa-bars"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Donatur</span>
         </a>
     </li>
