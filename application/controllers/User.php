@@ -249,18 +249,18 @@ class User extends CI_Controller
         // nama file pdf yang di hasilkan
     }
 
-    public function transaksi()
-    {
-        $data['title'] = 'transaksi | Donasi Himsi';
-        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-        unset($_SESSION['donasi_data']);
-        $data['user_berdonasi'] = $this->db->get('transaksi')->result_array();
+    // public function transaksi()
+    // {
+    //     $data['title'] = 'transaksi | Donasi Himsi';
+    //     $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+    //     unset($_SESSION['donasi_data']);
+    //     $data['user_berdonasi'] = $this->db->get('transaksi')->result_array();
 
-        $this->load->view('templates/user_header', $data);
-        $this->load->view('templates/user_navbar', $data);
-        $this->load->view('user/transaksi', $data);
-        $this->load->view('templates/user_footer');
-    }
+    //     $this->load->view('templates/user_header', $data);
+    //     $this->load->view('templates/user_navbar', $data);
+    //     $this->load->view('user/transaksi', $data);
+    //     $this->load->view('templates/user_footer');
+    // }
 
     public function bayar()
     {

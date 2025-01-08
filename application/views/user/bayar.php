@@ -50,9 +50,6 @@
                          <div class="col-sm-10 d-flex justify-content-start align-items-center gap-3">
                              <!-- Tombol Submit -->
                              <button type="submit" class="btn btn-primary">Bayar</button>
-
-                             <!-- Tombol ke Halaman Transaksi -->
-                             <a href="<?= base_url('user/transaksi/') ?>" class="btn btn-secondary">Nanti</a>
                          </div>
                      </div>
                  </form>

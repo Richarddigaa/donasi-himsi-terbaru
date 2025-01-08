@@ -13,7 +13,7 @@
             <div class="form-group row justify-content-end m-3">
                 <div class="col-sm-10 d-flex justify-content-start">
                     <button type="submit" class="btn btn-primary" style="margin-right: 5px;">Ubah</button>
-                    <a href="<?php echo base_url('admin/ubahProfile/') . $user['id_donatur']; ?>" class="btn btn-secondary">Kembali</a>
+                    <a href="<?php echo base_url('user/ubahProfile/') . $user['id_donatur']; ?>" class="btn btn-secondary">Kembali</a>
                 </div>
             </div>
             </form>

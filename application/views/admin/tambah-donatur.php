@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="role" class="col-sm-2 col-form-label">Role</label>
-                            <input type="text" class="form-control form-control-user" id="role" name="role" value="Member" readonly>
+                            <input type="text" class="form-control form-control-user" id="role" name="role" value="Donatur" readonly>
                         </div>
                         <div class="form-group">
                             <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
@@ -53,7 +53,8 @@
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>
-                            <button class="btn btn-light" onclick="goBack()">Batal</button>
+                            <!-- Tombol ke Halaman sebelumnya -->
+                            <a href="<?= base_url('admin/donatur/') ?>" class="btn btn-secondary">Batal</a>
                         </div>
                     </form>
 

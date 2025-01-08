@@ -78,7 +78,7 @@ class Admin extends CI_Controller
             ]);
             $this->session->set_flashdata(
                 'pesan',
-                '<div class="alert alert-success alert-message" role="alert">Kategori berhasil ditambahkan</div>
+                '<div class="alert alert-success alert-message" role="alert">Donatur berhasil ditambahkan</div>
                                     <meta http-equiv="refresh" content="2">'
             );
             redirect('admin/donatur');
@@ -91,7 +91,7 @@ class Admin extends CI_Controller
         $this->ModelAdmin->hapus_donatur($id);
         $this->session->set_flashdata(
             'pesan',
-            '<div class="alert alert-success alert-message" role="alert">donatur berhasil dihapus</div>
+            '<div class="alert alert-success alert-message" role="alert">Donatur berhasil dihapus</div>
                                     <meta http-equiv="refresh" content="2">'
         );
         redirect('admin/donatur');
@@ -484,7 +484,7 @@ class Admin extends CI_Controller
         $this->ModelAdmin->hapus_metode($id);
         $this->session->set_flashdata(
             'pesan',
-            '<div class="alert alert-success alert-message" role="alert">Donasi berhasil dihapus</div>
+            '<div class="alert alert-success alert-message" role="alert">Metode Pembayaran  berhasil dihapus</div>
                                     <meta http-equiv="refresh" content="2">'
         );
         redirect('admin/pembayaran');
@@ -499,7 +499,7 @@ class Admin extends CI_Controller
         $this->db->update('transaksi', $simpan);
         $this->session->set_flashdata(
             'pesan',
-            '<div class="alert alert-success alert-message" role="alert">Konfirmasi berhasil</div>
+            '<div class="alert alert-success alert-message" role="alert">Transaksi berhasil dikonfirmasi</div>
                                 <meta http-equiv="refresh" content="2">'
         );
         redirect('admin/konfirmasiDonasi');
@@ -587,7 +587,7 @@ class Admin extends CI_Controller
             $this->db->set('nama', $nama); 
             $this->db->where('email', $email);
             $this->db->update('donatur');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profil Berhasil diubah </div>
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profile Berhasil diubah </div>
                                             <meta http-equiv="refresh" content="2">');
             redirect('admin/profile');
         }
@@ -728,14 +728,14 @@ class Admin extends CI_Controller
                 $img = $gambar['file_name'];
                 $this->session->set_flashdata(
                     'pesan',
-                    '<div class="alert alert-success alert-message" role="alert">Kategori berhasil diupdate</div>
+                    '<div class="alert alert-success alert-message" role="alert">Upload bukti berhasil</div>
                                     <meta http-equiv="refresh" content="2">'
                 );
             } else {
                 $img = $this->input->post('old_pict', TRUE);
                 $this->session->set_flashdata(
                     'pesan',
-                    '<div class="alert alert-danger alert-message" role="alert">Kategori tidak diupdate</div>
+                    '<div class="alert alert-danger alert-message" role="alert">Upload bukti tidak berhasil</div>
                                     <meta http-equiv="refresh" content="2">'
                 );
             }

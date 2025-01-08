@@ -108,7 +108,7 @@ class Auth extends CI_Controller
                 'gambar' => 'logo-donasi.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'id_role' => '002',
-                'tanggal_input' => time()
+                'tanggal_input' => date('Y-m-d')
             ];
 
             $this->ModelUser->simpanData($data);

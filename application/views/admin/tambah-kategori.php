@@ -31,7 +31,8 @@
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mr-2"> Simpan </button>
-                            <button class="btn btn-light" onclick="goBack()">Batal</button>
+                            <!-- Balik ke halaman sebelumnya -->
+                            <a href="<?= base_url('admin/kategori/') ?>" class="btn btn-secondary">Batal</a>
                         </div>
                     </form>
 
