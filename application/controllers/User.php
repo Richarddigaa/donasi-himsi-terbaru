@@ -106,31 +106,31 @@ class User extends CI_Controller
                 $this->load->view('user/berdonasi', $data);
                 $this->load->view('templates/user_footer');
             } else {
-                    function bersihkanRupiah($string)
-                    {
-                        $string = str_replace('Rp', '', $string);
-                        $string = str_replace('.', '', $string);
-                        return $string;
-                    }
-                    $dana = $this->input->post('dana', true);
-                    $dana_rupiah = bersihkanRupiah($dana);
+                function bersihkanRupiah($string)
+                {
+                    $string = str_replace('Rp', '', $string);
+                    $string = str_replace('.', '', $string);
+                    return $string;
+                }
+                $dana = $this->input->post('dana', true);
+                $dana_rupiah = bersihkanRupiah($dana);
                 session_start();
-                    $data = [
+                $data = [
                     'id_transaksi' => $this->input->post('id_berdonasi', true),
                     'id_donatur' => $this->input->post('id_user', true),
-                        'id_donasi' => $this->input->post('id_donasi', true),
-                        'id_pembayaran' => $this->input->post('pembayaran', true),
-                        'dana_didonasikan' => $dana_rupiah,
+                    'id_donasi' => $this->input->post('id_donasi', true),
+                    'id_pembayaran' => $this->input->post('pembayaran', true),
+                    'dana_didonasikan' => $dana_rupiah,
                     'tanggal_donasi' => date('Y-m-d'),
-
-                    ];
+                    'anonim' => $this->input->post('anonim') ? $this->input->post('anonim') : 0,
+                ];
                 $_SESSION['donasi_data'] = $data;
-                    $this->ModelUser->simpanBerdonasi($data);
-                    $this->session->set_flashdata(
-                        'pesan',
+                $this->ModelUser->simpanBerdonasi($data);
+                $this->session->set_flashdata(
+                    'pesan',
                     '<div class="alert alert-success alert-message" role="alert">Silahkan Melakakukan Pembayaran </div>
                                     <meta http-equiv="refresh" content="4">'
-                    );
+                );
                 redirect('user/bayar');
             }
         } else {
@@ -234,7 +234,7 @@ class User extends CI_Controller
             ON transaksi.id_pembayaran = pembayaran.id_pembayaran
             WHERE transaksi.id_transaksi = '$id' ")->result_array();
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/donasi-himsii/application/third_party/dompdf/autoload.inc.php";
 
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('user/pdf-struk.php', $data);
@@ -386,6 +386,4 @@ class User extends CI_Controller
             redirect('user/profile');
         }
     }
-
-
 }

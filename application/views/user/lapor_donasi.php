@@ -20,11 +20,11 @@
                 <p class="media-body pb-3 mb-0 fs-6 lh-125 border-bottom border-gray text-white">
                     <?= date('d F Y', strtotime($l['tanggal_pencairan'])); ?>
                     <strong class="d-block text-white"><?= "Pencairan Dana Rp." . number_format($l['dana_cair']); ?></strong>
-                    <?= "Bank :" . $l['bank_tujuan']; ?>
+                    <?= "Nama Rekening : " . $l['bank_tujuan']; ?>
                     <br>
-                    <?php echo  "Nomor Rekening :" . $no_rekening_new; ?>
+                    <?php echo  "Nomor Rekening : " . $no_rekening_new; ?>
                     <br>
-                    <?php echo "Nama penerima :" . $l['nama_penerima_tujuan']; ?>
+                    <?php echo "Nama penerima : " . $l['nama_penerima_tujuan']; ?>
                     <br>
                     <br>
                 </p>

@@ -47,6 +47,10 @@
                                             <td>
                                                 <h6 class="btn btn-outline-secondary">Pending</h6>
                                             </td>
+                                        <?php } else if ($b['status_transaksi'] == 'Ditolak') { ?>
+                                            <td>
+                                                <h6 class="btn btn-outline-danger">Ditolak</h6>
+                                            </td>
                                         <?php } else { ?>
                                             <td><a class="btn btn-success" href="<?= base_url('user/struk/') . $b['id_transaksi']; ?>"><i class="fas fa-fw fa-file"></i> Lihat</a></td>
                                         <?php } ?>

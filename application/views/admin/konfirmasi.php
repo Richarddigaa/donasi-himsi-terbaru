@@ -62,7 +62,10 @@
                                             </td>
                                             <td><span><?= date('d F Y', strtotime($b['tanggal_donasi'])); ?></span></td>
                                             <td>
-                                                <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_transaksi']; ?>" class="btn btn-primary">Dikonfirmasi</a>
+                                                <a href="<?php echo base_url(); ?>admin/konfirmasi/<?php echo $b['id_transaksi']; ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo base_url(); ?>admin/tolakKonfirmasi/<?php echo $b['id_transaksi']; ?>" class="btn btn-danger"><i class="fas fa-times"></i></a>
                                             </td>
                                         </tr>
                                         <?php $i++; ?>

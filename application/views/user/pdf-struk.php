@@ -21,7 +21,7 @@
                 <tr>
                     <td>Tanggal Donasi</td>
                     <td>:</td>
-                    <td><?= date('d F Y', $b['tanggal_donasi']); ?></td>
+                    <td><?= $b['tanggal_donasi']; ?></td>
                 </tr>
                 <tr>
                     <td>Dana yang diberikan</td>

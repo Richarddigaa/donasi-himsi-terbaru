@@ -505,6 +505,21 @@ class Admin extends CI_Controller
         redirect('admin/konfirmasiDonasi');
     }
 
+    public function tolakKonfirmasi($id)
+    {
+        $simpan = [
+            'status_transaksi' => "Ditolak"
+        ];
+        $this->db->where('id_transaksi', $id);
+        $this->db->update('transaksi', $simpan);
+        $this->session->set_flashdata(
+            'pesan',
+            '<div class="alert alert-success alert-message" role="alert">Transaksi ditolak</div>
+                                <meta http-equiv="refresh" content="2">'
+        );
+        redirect('admin/konfirmasiDonasi');
+    }
+
     public function konfirmasiDonasi()
     {
         $data['title'] = 'Konfirmasi Donasi | Admin Donasi Himsi';
@@ -584,7 +599,7 @@ class Admin extends CI_Controller
                 echo "gagal";
             }
 
-            $this->db->set('nama', $nama); 
+            $this->db->set('nama', $nama);
             $this->db->where('email', $email);
             $this->db->update('donatur');
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Profile Berhasil diubah </div>
@@ -815,7 +830,7 @@ class Admin extends CI_Controller
 
         // Memuat Dompdf
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/donasi-himsi/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/donasi-himsii/application/third_party/dompdf/autoload.inc.php";
 
         $dompdf = new Dompdf\Dompdf();
 
@@ -832,7 +847,7 @@ class Admin extends CI_Controller
         $dompdf->render();
 
         // Mengunduh atau menampilkan PDF
-        $dompdf->stream("laporan_pencairan_donasi.pdf", array('Attachment' => 0));
+        $dompdf->stream("laporan_pencairan_donasi.pdf", array('Attachment' => 1));
     }
 
     public function ubah_password()

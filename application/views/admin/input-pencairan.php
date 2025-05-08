@@ -54,7 +54,14 @@
                                     <option value="BANK Mandiri">BANK MANDIRI</option>
                                     <option value="BANK BRI">BANK BRI</option>
                                     <option value="BANK BNI">BANK BNI</option>
-
+                                    <option value="BANK BSI">BANK BSI</option>
+                                    <option value="BANK PERMATA">BANK PERMATA</option>
+                                    <option value="BANK JAGO">BANK JAGO</option>
+                                    <option value="SEABANK">SEABANK</option>
+                                    <option value="DANA">DANA</option>
+                                    <option value="OVO">OVO</option>
+                                    <option value="GOPAY">GOPAY</option>
+                                    <option value="SHOPEEPAY">SHOPEEPAY</option>
                                 </select>
                                 <small class="text-danger"><?php echo form_error('nama_rekening'); ?></small>
                             </div>
