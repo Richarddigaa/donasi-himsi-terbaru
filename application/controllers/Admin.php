@@ -302,7 +302,7 @@ class Admin extends CI_Controller
 
     public function ubahDonasi()
     {
-        $data['title'] = 'Ubah Donasi | Admin Donasi Himsi';
+        $data['title'] = 'Edit Donasi | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $data['donasi'] = $this->ModelAdmin->donasiWhere(['id_donasi' => $this->uri->segment(3)])->result_array();
@@ -431,7 +431,7 @@ class Admin extends CI_Controller
 
     public function edit_pembayaran($id)
     {
-        $data['title'] = 'Ubah Metode Pembayaran | Admin Donasi Himsi';
+        $data['title'] = 'Edit Metode Pembayaran | Admin Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
         $data['data'] = $this->ModelAdmin->getrow(array('id_pembayaran' => $id), 'pembayaran');
@@ -490,14 +490,16 @@ class Admin extends CI_Controller
         redirect('admin/pembayaran');
     }
 
+    //jika dikonfirmasi maka status menjadi sudah dikonfirmasi
     public function konfirmasi($id)
     {
         $simpan = [
             'status_transaksi' => "Sudah dikonfirmasi"
         ];
-        $this->db->where('id_transaksi', $id);
-        $this->db->update('transaksi', $simpan);
-        $this->session->set_flashdata(
+        $this->db->where('id_transaksi', $id); // mengambil id transaksi
+        $this->db->update('transaksi', $simpan); // update ke tabel transaksi
+        // pesan notifikasi
+        $this->session->set_flashdata(  
             'pesan',
             '<div class="alert alert-success alert-message" role="alert">Transaksi berhasil dikonfirmasi</div>
                                 <meta http-equiv="refresh" content="2">'
@@ -505,13 +507,15 @@ class Admin extends CI_Controller
         redirect('admin/konfirmasiDonasi');
     }
 
+    //jika ditolak maka status menjadi Ditolak
     public function tolakKonfirmasi($id)
     {
         $simpan = [
             'status_transaksi' => "Ditolak"
         ];
-        $this->db->where('id_transaksi', $id);
-        $this->db->update('transaksi', $simpan);
+        $this->db->where('id_transaksi', $id); // mengambil id transaksi
+        $this->db->update('transaksi', $simpan); // update ke tabel transaksi
+        // pesan notifikasi
         $this->session->set_flashdata(
             'pesan',
             '<div class="alert alert-success alert-message" role="alert">Transaksi ditolak</div>

@@ -3,6 +3,7 @@
         <div class="card-body">
 
             <?php
+            // query untuk menampilkan transaksi berdasarkan user yang login
             $queryBerdonasi = "SELECT * FROM transaksi 
                                 INNER JOIN donasi ON transaksi.id_donasi = donasi.id_donasi
                                 INNER JOIN pembayaran ON transaksi.id_pembayaran = pembayaran.id_pembayaran

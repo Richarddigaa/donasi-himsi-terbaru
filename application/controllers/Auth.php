@@ -89,7 +89,7 @@ class Auth extends CI_Controller
             'is_unique' => 'Email Sudah Terdaftar!'
         ]);
 
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]', [ 
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]', [
             'required' => 'Password Belum diisi!!',
             'min_length' => 'Password Terlalu Pendek'
         ]);
@@ -123,17 +123,24 @@ class Auth extends CI_Controller
         }
     }
 
+    /**
+     * Proses logout user dari sistem.
+     *
+     * Menghapus data session:
+     * - email
+     * - role_id
+     *
+     * Memberikan flash message dan redirect ke halaman login (auth).
+     */
     public function logout()
     {
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('id_role');
+        $this->session->unset_userdata(['email', 'id_role']);
 
         $this->session->set_flashdata(
             'pesan',
-            '<div class="alert alert-success" role="alert">Kamu berhasil logout</div>
-            <meta http-equiv="refresh" content="2">'
+            '<div class="alert alert-success" role="alert">Kamu berhasil logout</div>'
         );
 
-        redirect('user');
+        redirect('user'); // arahkan ke halaman index
     }
 }

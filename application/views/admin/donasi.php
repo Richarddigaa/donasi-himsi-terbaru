@@ -17,18 +17,18 @@
 
                 <?php
                 // Pagination setup
-                $limit = 5; // Number of records per page
+                $limit = 5; // jumlah data yang ditampilkan
                 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $offset = ($page - 1) * $limit;
 
-                // Get the records for the current page
+                // query untuk memanggil data donasi
                 $queryDonasi = "SELECT * FROM donasi 
                                 JOIN kategori ON donasi.id_kategori = kategori.id_kategori 
                                 ORDER BY id_donasi desc 
                                 LIMIT $limit OFFSET $offset";
                 $donasi = $this->db->query($queryDonasi)->result_array();
 
-                // Count the total number of records to calculate the number of pages
+                // hitung jumlah total data
                 $totalRecords = $this->db->query("SELECT COUNT(*) as total FROM donasi")->row()->total;
                 $totalPages = ceil($totalRecords / $limit);
                 ?>
@@ -58,7 +58,20 @@
                                         <td><span><?php echo $d['kategori']; ?></span></td>
                                         <td><?php echo "Rp. " . number_format($d['dana_dibutuhkan'], 2, ',', '.'); ?></td>
                                         <td><?php echo "Rp. " . number_format($d['dana_terkumpul'], 2, ',', '.'); ?></td>
-                                        <td><?php echo $d['detail']; ?></td>
+                                        <td>
+                                            <!-- jadi lebih sedikit detailnya -->
+                                            <p class="fs-5 lh-sm" style="text-align: justify;">
+                                                <span id="detail-short-<?= $d['id_donasi']; ?>">
+                                                    <?= substr($d['detail'], 0, 200); ?>...
+                                                </span>
+                                                <span id="detail-full-<?= $d['id_donasi']; ?>" style="display: none;">
+                                                    <?= $d['detail']; ?>
+                                                </span>
+                                                <a href="#" onclick="toggleDetail('<?= $d['id_donasi']; ?>'); return false;" id="btn-detail-<?= $d['id_donasi']; ?>">
+                                                    Lihat selengkapnya
+                                                </a>
+                                            </p>
+                                        </td>
                                         <td>
                                             <picture>
                                                 <source srcset="" type="image/svg+xml">
@@ -108,3 +121,21 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<script>
+    function toggleDetail(id) {
+        var shortText = document.getElementById('detail-short-' + id);
+        var fullText = document.getElementById('detail-full-' + id);
+        var btn = document.getElementById('btn-detail-' + id);
+
+        if (fullText.style.display === 'none') {
+            shortText.style.display = 'none';
+            fullText.style.display = 'inline';
+            btn.textContent = 'Sembunyikan';
+        } else {
+            shortText.style.display = 'inline';
+            fullText.style.display = 'none';
+            btn.textContent = 'Lihat selengkapnya';
+        }
+    }
+</script>

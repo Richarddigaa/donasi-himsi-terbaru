@@ -4,6 +4,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User extends CI_Controller
 {
 
+    /**
+     * Menampilkan halaman dashboard user.
+     *
+     * Data yang dikirim ke view:
+     * - $user: informasi user yang login
+     * - $donasi: seluruh data donasi dari database
+     *
+     * View yang digunakan:
+     * - templates/user_header.php
+     * - templates/user_navbar.php
+     * - user/index.php
+     * - templates/user_footer.php
+     */
     public function index()
     {
         $data['title'] = 'Home | Donasi Himsi';
@@ -26,8 +39,12 @@ class User extends CI_Controller
         }
     }
 
+
     public function donasi()
     {
+        // log_message('debug', 'Fungsi donasi() dipanggil');
+        // $mem_before = memory_get_usage();
+
         $data['title'] = 'Bantu Mereka | Donasi Himsi';
         $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
 
@@ -37,6 +54,12 @@ class User extends CI_Controller
         $this->load->view('templates/user_navbar', $data);
         $this->load->view('user/donasi', $data);
         $this->load->view('templates/user_footer');
+
+        // $mem_after = memory_get_usage();
+        // $mem_peak = memory_get_peak_usage();
+
+        // log_message('debug', 'Memory used by donasi(): ' . ($mem_after - $mem_before) . 'bytes');
+        // log_message('debug', 'Peak memory usage so far: ' . $mem_peak . 'bytes');
     }
 
     public function detailDonasi()
@@ -78,20 +101,28 @@ class User extends CI_Controller
         $data['title'] = 'Detail Donasi | Donasi Himsi';
         if ($this->session->userdata('email')) {
 
-
+            // mengambil sesion user login
             $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+
+            // mengambil id donasi berdasarkan user mau donasi
             $data['donasi'] = $this->ModelAdmin->donasiWhere(['id_donasi' => $this->uri->segment(3)])->result_array();
 
+            // mengambil data pembayaran
             $data['pembayaran'] = $this->db->get('pembayaran')->result_array();
 
+            // untuk membuat id transaksi
             $queryIDBerdonasi = "SELECT max(id_transaksi) as maxID FROM transaksi";
             $data['idB'] = $this->db->query($queryIDBerdonasi)->result_array();
 
+            // form validation agar user input seusai sistem
             $this->form_validation->set_rules(
                 'dana',
                 'Dana Yang Akan Didonasikan',
                 'required|min_length[7]',
-                ['required' => 'Dana Yang Akan Didonasikan harus diisi', 'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000']
+                [
+                    'required' => 'Dana Yang Akan Didonasikan harus diisi',
+                    'min_length' => 'Dana Yang Akan Didonasikan Minimal Rp. 1.000'
+                ]
             );
 
             $this->form_validation->set_rules(
@@ -115,6 +146,7 @@ class User extends CI_Controller
                 $dana = $this->input->post('dana', true);
                 $dana_rupiah = bersihkanRupiah($dana);
                 session_start();
+                // simpan ke database
                 $data = [
                     'id_transaksi' => $this->input->post('id_berdonasi', true),
                     'id_donatur' => $this->input->post('id_user', true),

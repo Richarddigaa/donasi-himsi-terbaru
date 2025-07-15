@@ -1,25 +1,30 @@
 <?php
 
+// untuk mengambil data yang user input 
 if (isset($_GET['keyword'])) {
+    // query untuk menampilkan donasi berdasarkan user input
     $queryDonasi = "SELECT * FROM donasi WHERE judul LIKE '%$_GET[keyword]%'";
     $donasi = $this->db->query($queryDonasi)->result_array();
 }
-// get produk by kategori
+// get donasi by kategori
 else if (isset($_GET['kategori'])) {
+    // query untuk menampilkan kategori
     $queryGETkategori = "SELECT id_kategori FROM kategori WHERE kategori='$_GET[kategori]'";
     $kategoriId = $this->db->query($queryGETkategori)->result_array();
 
     foreach ($kategoriId as $ki) {
+        // query untuk menampilkan donasi berdasarkan kategori
         $queryDonasi = "SELECT * FROM donasi WHERE id_kategori='$ki[id_kategori]'";
         $donasi = $this->db->query($queryDonasi)->result_array();
     }
 }
-// get produk default
+// get donasi default
 else {
+    // query untuk menampilkan donasi
     $queryDonasi = "SELECT * FROM donasi ORDER BY id_donasi DESC";
     $donasi = $this->db->query($queryDonasi)->result_array();
 }
-
+// menghitung jumlah data
 $countData = $this->db->query($queryDonasi)->num_rows();
 ?>
 

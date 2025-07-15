@@ -48,7 +48,7 @@
                                     <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    register
+                                    Register
                                 </button>
                             </form>
                             <hr>

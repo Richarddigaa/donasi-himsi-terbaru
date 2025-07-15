@@ -7,8 +7,17 @@
                 </div>
                 <div class="col-lg-6 offset-lg-1">
                     <h1><?php echo $d['judul']; ?></h1>
+                    <!-- jadi lebih sedikit detailnya -->
                     <p class="fs-5 lh-sm" style="text-align: justify;">
-                        <?php echo $d['detail']; ?>
+                        <span id="detail-short-<?= $d['id_donasi']; ?>">
+                            <?= substr($d['detail'], 0, 200); ?>...
+                        </span>
+                        <span id="detail-full-<?= $d['id_donasi']; ?>" style="display: none;">
+                            <?= $d['detail']; ?>
+                        </span>
+                        <a href="#" onclick="toggleDetail('<?= $d['id_donasi']; ?>'); return false;" id="btn-detail-<?= $d['id_donasi']; ?>">
+                            Lihat selengkapnya
+                        </a>
                     </p>
                     <p class="fs-3 text-primary" style="font-weight: bold;">
                         <?= "Dana terkumpul Rp. " . number_format($d['dana_terkumpul']);  ?>
@@ -78,3 +87,21 @@
     <?php } ?>
     </div>
 </div>
+
+<script>
+    function toggleDetail(id) {
+        var shortText = document.getElementById('detail-short-' + id);
+        var fullText = document.getElementById('detail-full-' + id);
+        var btn = document.getElementById('btn-detail-' + id);
+
+        if (fullText.style.display === 'none') {
+            shortText.style.display = 'none';
+            fullText.style.display = 'inline';
+            btn.textContent = 'Sembunyikan';
+        } else {
+            shortText.style.display = 'inline';
+            fullText.style.display = 'none';
+            btn.textContent = 'Lihat selengkapnya';
+        }
+    }
+</script>

@@ -6,7 +6,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Ubah Metode Pembayaran</h4>
+                <h4 class="card-title mb-4">Edit Metode Pembayaran</h4>
                 <form action="<?= base_url('admin/edit_pembayaran/' . $data->id_pembayaran) ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-control" name="nama_bank" value="<?php echo $data->nama_bank; ?>" required />
